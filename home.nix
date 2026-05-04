@@ -60,7 +60,9 @@
 
     rustc
     nodejs
-    deno
+    (deno.overrideAttrs (_: {
+      doCheck = false;
+    }))
     (python3.withPackages (
       ps: with ps; [
         pip
@@ -156,7 +158,7 @@
       };
     };
 
-    vscode = {
+    vscodium = {
       enable = true;
       package = pkgs.vscodium;
     };
