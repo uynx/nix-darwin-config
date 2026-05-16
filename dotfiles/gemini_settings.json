@@ -12,7 +12,10 @@
   "general": {
     "vimMode": true,
     "defaultApprovalMode": "plan",
-    "enableNotifications": true
+    "enableNotifications": true,
+    "plan": {
+      "enabled": false
+    }
   },
   "ui": {
     "showStatusInTitle": true,
