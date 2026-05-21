@@ -157,7 +157,8 @@
         ApplePressAndHoldEnabled = false;
         InitialKeyRepeat = 15;
         "com.apple.mouse.tapBehavior" = 1;
-        AppleShowAllExtensions = true;
+        AppleShowAllExtensions = false;
+        AppleShowAllFiles = false;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
 
@@ -252,6 +253,7 @@
       "protonvpn"
       "streamlabs"
       "mullvad-browser"
+      "antigravity-cli"
     ];
     masApps = {
       "cakewallet" = 1334702542;

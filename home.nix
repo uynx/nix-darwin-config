@@ -90,16 +90,7 @@
         ;
     })
 
-    (melonds.override {
-      kdePackages = pkgs.kdePackages // {
-        extra-cmake-modules = pkgs.kdePackages.extra-cmake-modules.overrideAttrs (old: {
-          meta = (old.meta or { }) // {
-            platforms = (old.meta.platforms or [ ]) ++ [ "aarch64-darwin" ];
-            broken = false;
-          };
-        });
-      };
-    })
+    melonds
     proton-pass
     qbittorrent
     wireshark
@@ -119,9 +110,6 @@
 
     ".config/ghostty/config".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/ghostty_config";
-
-    ".gemini/settings.json".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/gemini_settings.json";
 
     ".aerospace.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/aerospace.toml";
