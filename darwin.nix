@@ -250,6 +250,7 @@
       "streamlabs"
       "mullvad-browser"
       "antigravity-cli"
+      "antigravity"
     ];
     masApps = {
       "cakewallet" = 1334702542;

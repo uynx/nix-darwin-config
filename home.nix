@@ -35,7 +35,6 @@
     gping
     doggo
     obsidian
-    antigravity
 
     (neovim.override {
       withPerl = true;
