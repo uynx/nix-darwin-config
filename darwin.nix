@@ -243,13 +243,13 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
+      extraFlags = [ "--force" ];
     };
     casks = [
       "libreoffice"
       "protonvpn"
       "streamlabs"
       "mullvad-browser"
-      "antigravity-cli"
       "antigravity"
     ];
     masApps = {
