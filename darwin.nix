@@ -243,13 +243,14 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
+      extraFlags = [ "--force" ];
     };
     casks = [
       "libreoffice"
       "protonvpn"
       "streamlabs"
       "mullvad-browser"
-      "antigravity-cli"
+      "antigravity"
     ];
     masApps = {
       "cakewallet" = 1334702542;

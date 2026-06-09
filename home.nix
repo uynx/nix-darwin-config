@@ -15,7 +15,6 @@
     username = "uynx";
     homeDirectory = "/Users/uynx";
     stateVersion = "26.05";
-    enableNixpkgsReleaseCheck = false;
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
@@ -35,7 +34,6 @@
     gping
     doggo
     obsidian
-    antigravity
 
     (neovim.override {
       withPerl = true;
@@ -122,7 +120,7 @@
       package = pkgs.ghostty-bin;
     };
 
-    gemini-cli.enable = true;
+    antigravity-cli.enable = true;
 
     fastfetch.enable = true;
     bun.enable = true;
