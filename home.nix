@@ -88,7 +88,6 @@
 
     swi-prolog
     sketchybar
-    sketchybar-app-font
 
     tmux
     tmuxPlugins.sensible

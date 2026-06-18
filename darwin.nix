@@ -93,6 +93,7 @@
           WebKitDeveloperExtrasEnabledPreferenceKey = true;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
           ShowFullURLInSmartSearchField = true;
+          AutoOpenSafeDownloads = false;
         };
         "com.apple.spotlight" = {
           SuggestionsEnabled = false;
@@ -116,8 +117,6 @@
           PlainTextEncoding = 4;
           PlainTextEncodingForWrite = 4;
         };
-
-        "com.apple.Safari".AutoOpenSafeDownloads = false;
 
         "com.apple.finder" = {
           WarnOnEmptyTrash = false;
@@ -261,6 +260,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.hack
     julia-mono
+    sketchybar-app-font
   ];
 
   networking = {
@@ -281,6 +281,20 @@
     extraPackages = [
       pkgs.aerospace
     ];
+  };
+
+  launchd.user.agents.weather-watcher = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/bin/bash"
+        "-c"
+        "/run/current-system/sw/bin/sketchybar --trigger weather_update"
+      ];
+      WatchPaths = [
+        "/Users/uynx/Library/Containers/com.apple.weather/Data/Library/Caches/com.apple.weather"
+      ];
+      RunAtLoad = false;
+    };
   };
 
   programs.fish.enable = true;
