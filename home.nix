@@ -2,14 +2,12 @@
   config,
   pkgs,
   pkgs-stable,
-  inputs,
+  lib,
   ...
 }:
 
 {
-  imports = [
-    inputs.nix-index-database.homeModules.nix-index
-  ];
+  imports = [ ];
 
   home = {
     username = "uynx";
@@ -34,6 +32,9 @@
     gping
     doggo
     obsidian
+    tokei
+    hyperfine
+    bandwhich
 
     (neovim.override {
       withPerl = true;
@@ -59,6 +60,7 @@
     php
     php.packages.composer
     ruby
+    uv
 
     imagemagick
     ghostscript
@@ -85,6 +87,14 @@
     dive
 
     swi-prolog
+    sketchybar
+    sketchybar-app-font
+
+    tmux
+    tmuxPlugins.sensible
+    tmuxPlugins.vim-tmux-navigator
+    tmuxPlugins.resurrect
+    tmuxPlugins.continuum
   ];
 
   home.file = {
@@ -98,6 +108,12 @@
 
     ".aerospace.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/aerospace.toml";
+
+    ".config/sketchybar".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/sketchybar";
+
+    ".config/tmux".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/tmux";
   };
 
   services.colima = {
@@ -257,7 +273,7 @@
       enableFishIntegration = true;
       settings = {
         add_newline = false;
-        command_timeout = 1000;
+        command_timeout = 3000;
       };
     };
 
@@ -309,18 +325,52 @@
       enableFishIntegration = true;
     };
 
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        side-by-side = true;
+        line-numbers = true;
+        theme = "Nord";
+      };
+    };
+
     git = {
       enable = true;
       settings = {
         user = {
           name = "Brandon Alexander";
           email = "brandonwalex@pm.me";
+          signingkey = "~/.ssh/id_ed25519.pub";
         };
         init.defaultBranch = "main";
         pull.rebase = true;
         push.autoSetupRemote = true;
-        core.editor = "nvim";
+        core = {
+          editor = "nvim";
+          fsmonitor = true;
+          untrackedCache = true;
+        };
+        gpg.format = "ssh";
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+        merge.conflictstyle = "zdiff3";
+        rerere.enabled = true;
       };
     };
   };
+
+  home.activation.copilotBridge = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    AUTH_DB="$HOME/.config/github-copilot/auth.db"
+    HOSTS_JSON="$HOME/.config/github-copilot/hosts.json"
+    if [ -f "$AUTH_DB" ]; then
+      TOKEN=$(${pkgs.sqlite}/bin/sqlite3 "$AUTH_DB" "SELECT cast(token_ciphertext as text) FROM oauth_tokens LIMIT 1;" 2>/dev/null)
+      if [ -n "$TOKEN" ]; then
+        mkdir -p "$(dirname "$HOSTS_JSON")"
+        printf '{\n  "github.com": {\n    "oauth_token": "%s"\n  }\n}\n' "$TOKEN" > "$HOSTS_JSON"
+        chmod 600 "$HOSTS_JSON"
+      fi
+    fi
+  '';
 }

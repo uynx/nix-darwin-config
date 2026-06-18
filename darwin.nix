@@ -19,13 +19,11 @@
         "root"
         "uynx"
       ];
-      substituters = [
-        "https://cache.nixos.org"
+      extra-substituters = [
         "https://nix-community.cachix.org"
         "https://numtide.cachix.org"
       ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      extra-trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "numtide.cachix.org-1:2ps1kLBUWnL9yCkD69XfYIa2VclDuxsBeE266mGrW0o="
       ];
@@ -65,6 +63,9 @@
       CustomUserPreferences = {
         "com.apple.CrashReporter" = {
           DialogType = "none";
+        };
+        "com.apple.universalaccess" = {
+          reduceMotion = true;
         };
         "com.apple.assistant.support" = {
           "Assistant Enabled" = false;
@@ -153,8 +154,9 @@
         ApplePressAndHoldEnabled = false;
         InitialKeyRepeat = 15;
         "com.apple.mouse.tapBehavior" = 1;
-        AppleShowAllExtensions = false;
+        AppleShowAllExtensions = true;
         AppleShowAllFiles = false;
+        AppleKeyboardUIMode = 3;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
 
@@ -243,7 +245,6 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
-      extraFlags = [ "--force" ];
     };
     casks = [
       "libreoffice"
@@ -273,6 +274,13 @@
   power = {
     restartAfterFreeze = true;
     sleep.allowSleepByPowerButton = true;
+  };
+
+  services.sketchybar = {
+    enable = true;
+    extraPackages = [
+      pkgs.aerospace
+    ];
   };
 
   programs.fish.enable = true;
