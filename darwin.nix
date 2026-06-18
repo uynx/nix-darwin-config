@@ -66,6 +66,9 @@
         "com.apple.CrashReporter" = {
           DialogType = "none";
         };
+        "com.apple.universalaccess" = {
+          reduceMotion = true;
+        };
         "com.apple.assistant.support" = {
           "Assistant Enabled" = false;
           "Dictation Enabled" = false;
@@ -153,8 +156,9 @@
         ApplePressAndHoldEnabled = false;
         InitialKeyRepeat = 15;
         "com.apple.mouse.tapBehavior" = 1;
-        AppleShowAllExtensions = false;
+        AppleShowAllExtensions = true;
         AppleShowAllFiles = false;
+        AppleKeyboardUIMode = 3;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
 
@@ -243,7 +247,7 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
-      extraFlags = [ "--force" ];
+      # extraFlags = [ "--force" ];
     };
     casks = [
       "libreoffice"

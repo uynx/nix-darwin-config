@@ -3,6 +3,7 @@
   pkgs,
   pkgs-stable,
   inputs,
+  lib,
   ...
 }:
 
@@ -34,6 +35,9 @@
     gping
     doggo
     obsidian
+    tokei
+    hyperfine
+    bandwhich
 
     (neovim.override {
       withPerl = true;
@@ -59,6 +63,7 @@
     php
     php.packages.composer
     ruby
+    uv
 
     imagemagick
     ghostscript
@@ -309,18 +314,110 @@
       enableFishIntegration = true;
     };
 
+    tmux = {
+      enable = true;
+      clock24 = true;
+      keyMode = "vi";
+      prefix = "C-a";
+      mouse = true;
+      plugins = with pkgs; [
+        tmuxPlugins.sensible
+        tmuxPlugins.vim-tmux-navigator
+        {
+          plugin = tmuxPlugins.resurrect;
+          extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+        }
+        {
+          plugin = tmuxPlugins.continuum;
+          extraConfig = ''
+            set -g @continuum-restore 'on'
+            set -g @continuum-save-interval '10'
+          '';
+        }
+      ];
+      extraConfig = ''
+        # True color and undercurl support for Ghostty
+        set -g default-terminal "xterm-256color"
+        set -ag terminal-overrides ",xterm-256color:RGB"
+        set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
+        set -as terminal-overrides ',*:Setcx=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+
+        # Keyboard repeat rate safety
+        set -s escape-time 0
+
+        # Start window numbering at 1
+        set -g base-index 1
+        setw -g pane-base-index 1
+        set -g renumber-windows on
+
+        # pbcopy integration for macOS
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+
+        # Flexoki Dark Aesthetic Status Line
+        set -g status-style "bg=#100f0f,fg=#cecdc3"
+        set -g status-left "#[fg=#205ea6,bold] #S #[fg=#343331]| "
+        set -g status-left-length 20
+        set -g status-right "#[fg=#878580]%Y-%m-%d #[fg=#66800d,bold]%H:%M "
+        set -g status-right-length 50
+        set -g window-status-format "#[fg=#878580] #I: #W "
+        set -g window-status-current-format "#[fg=#bc5215,bold,bg=#282726] #I: #W* "
+        set -g pane-border-style "fg=#282726"
+        set -g pane-active-border-style "fg=#205ea6"
+      '';
+    };
+
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        side-by-side = true;
+        line-numbers = true;
+        theme = "Nord";
+      };
+    };
+
     git = {
       enable = true;
       settings = {
         user = {
           name = "Brandon Alexander";
           email = "brandonwalex@pm.me";
+          signingkey = "~/.ssh/id_ed25519.pub";
         };
         init.defaultBranch = "main";
         pull.rebase = true;
         push.autoSetupRemote = true;
         core.editor = "nvim";
+        core.fsmonitor = true;
+        core.untrackedCache = true;
+        gpg.format = "ssh";
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+        merge.conflictstyle = "zdiff3";
+        rerere.enabled = true;
       };
     };
   };
+
+  home.activation.copilotBridge = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    AUTH_DB="$HOME/.config/github-copilot/auth.db"
+    HOSTS_JSON="$HOME/.config/github-copilot/hosts.json"
+    if [ -f "$AUTH_DB" ]; then
+      TOKEN=$(${pkgs.sqlite}/bin/sqlite3 "$AUTH_DB" "SELECT cast(token_ciphertext as text) FROM oauth_tokens LIMIT 1;" 2>/dev/null)
+      if [ -n "$TOKEN" ]; then
+        mkdir -p "$(dirname "$HOSTS_JSON")"
+        cat > "$HOSTS_JSON" <<EOF
+{
+  "github.com": {
+    "oauth_token": "$TOKEN"
+  }
+}
+EOF
+        chmod 600 "$HOSTS_JSON"
+      fi
+    fi
+  '';
 }
