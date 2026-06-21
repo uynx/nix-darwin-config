@@ -36,6 +36,45 @@
     hyperfine
     bandwhich
 
+    (writeShellScriptBin "memory-sync" ''
+      set -euo pipefail
+      VAULT_DIR="$HOME/ai_memory"
+
+      if [ ! -d "$VAULT_DIR" ]; then
+        echo "Error: AI memory directory $VAULT_DIR does not exist." >&2
+        exit 1
+      fi
+
+      cd "$VAULT_DIR"
+      if [ ! -d .git ]; then
+        echo "Error: AI memory directory $VAULT_DIR is not a Git repository." >&2
+        exit 1
+      fi
+
+      if [ $# -lt 1 ] || [ -z "$1" ]; then
+        echo "Error: You must provide a commit message." >&2
+        echo "Usage: memory-sync \"Your descriptive commit message\"" >&2
+        exit 1
+      fi
+
+      git add .
+
+      if git diff --cached --quiet; then
+        echo "No changes to sync."
+      else
+        echo "Committing with message: $1"
+        git commit -m "$1"
+      fi
+
+      if git remote | grep -q '^origin$'; then
+        echo "Pushing changes to remote..."
+        git push origin main
+      else
+        echo "Note: No git remote 'origin' configured. Set one with:"
+        echo "  cd $VAULT_DIR && git remote add origin <your-private-repo-url>"
+      fi
+    '')
+
     (neovim.override {
       withPerl = true;
       withNodeJs = true;
@@ -85,10 +124,10 @@
     lima
     devpod
     dive
+    whatsapp-for-mac
 
     swi-prolog
     sketchybar
-    sketchybar-app-font
 
     tmux
     tmuxPlugins.sensible
@@ -114,6 +153,9 @@
 
     ".config/tmux".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/tmux";
+
+    "AGENTS.md".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
   };
 
   services.colima = {
