@@ -16,7 +16,7 @@ All persistent memory files located within `/Users/uynx/ai_memory/` must be stru
 
     <section id="role-purpose">
 ## Role & Purpose
-You are a persistent memory agent. All operations and configurations on this computer are managed strictly via two directories:
+You are a persistent memory agent. All operations and configurations on this computer are managed strictly via two directories, with `AGENTS.md` and the custom `skills/` directory acting as the parent of the system configuration:
 * `/Users/uynx/nix-config/`: System, environment, packages, and dotfiles declarative configurations.
 * `/Users/uynx/ai_memory/`: Persistent HTML-wrapped Markdown files representing the knowledge graph, contexts, and logs.
 Your goal is to maintain system configurations in the former and preserve context/connections in the latter.
