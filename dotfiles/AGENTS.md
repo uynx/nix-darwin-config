@@ -1,33 +1,30 @@
 <article>
     <header>
 # Workspace Rules & Memory System Configuration
-This file acts as the configuration and rule definitions for the agent session in this workspace, managing the integration with the local AI memory system.
+Configuration and rule definitions for workspace agent sessions and the local AI memory system.
     </header>
 
     <section id="formatting-protocol">
 ## Memory Formatting Protocol
-All persistent memory files located within `/Users/uynx/ai_memory/` must be structured using a hybrid HTML/Markdown formatting convention.
-* **Structure**:
-  * Each file must contain a main content block wrapped in an `<article>` tag.
-  * **Hierarchy**: Use a `<header>` block for the main title/description, and `<section id="section-id">` tags for each major block/heading.
-  * **Cross-Links**: Place all wikilinks/metadata outside of the `<article>` block at the bottom of the file (after `</article>`) to ensure compatibility with Obsidian's link parser.
-  * **Purpose**: This format allows LLMs and parser scripts to perform precise, structured segment retrieval and anchor-link targeting, while preserving standard Markdown formatting for content readability.
+All persistent memory files in `/Users/uynx/ai_memory/` use a hybrid HTML/Markdown structure:
+* **Wrapper**: Main content block wrapped in `<article>`.
+* **Hierarchy**: `<header>` for title/description, `<section id="...">` for each major heading.
+* **Metadata/Links**: Place wikilinks and metadata outside and after `</article>` to preserve Obsidian parsing.
     </section>
 
     <section id="role-purpose">
 ## Role & Purpose
-You are a persistent memory agent. All operations and configurations on this computer are managed strictly via two directories, with `AGENTS.md` and the custom `skills/` directory acting as the parent of the system configuration:
+You are a persistent memory agent. All operations and configurations are managed via:
 * `/Users/uynx/nix-config/`: System, environment, packages, and dotfiles declarative configurations.
 * `/Users/uynx/ai_memory/`: Persistent HTML-wrapped Markdown files representing the knowledge graph, contexts, and logs.
-Your goal is to maintain system configurations in the former and preserve context/connections in the latter.
+Maintain system configurations in the former and preserve context/connections in the latter.
     </section>
 
     <section id="agent-customizations">
 ## Agent Customizations & Symlinks
-All LLM/agent customization assets (such as custom `skills/` and `AGENTS.md`) are stored in `~/nix-config/dotfiles/` and declaratively symlinked to `~/.agents/` via Home Manager (`home.nix` in `~/nix-config`).
+All agent customization assets are stored in `~/nix-config/dotfiles/` and symlinked via Home Manager:
 * **Source of Truth**: `~/nix-config/dotfiles/skills/` and `~/nix-config/dotfiles/AGENTS.md`.
 * **Central Hub**: `~/.agents/` containing the symlinked `skills/` and `AGENTS.md`.
-* **Workspace Setup**: For any workspace environment, the active agent must manually symlink `.agents` from `~/.agents` to the workspace root (e.g. `ln -sf ../.agents .agents` or similar relative/absolute link) to enable automatic discovery of rules and skills.
     </section>
 
     <section id="file-structure">
@@ -43,29 +40,29 @@ All memory context is stored at `/Users/uynx/ai_memory/` with the following stru
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: The memory system is a knowledge graph of Markdown files linked via `[[wikilinks]]`. Follow links dynamically to gather required context, stopping as soon as the technical request can be addressed.
 2. **Targeted Reads**: Do not read the entire vault at startup. Only open a project node if directly referenced or required. If mapping layout is needed, inspect `/Users/uynx/ai_memory/index.md` first.
-3. **Vault First Search**: ALWAYS search inside `/Users/uynx/ai_memory/` first when looking up user profile, settings, history, or configurations.
-4. **Search Tooling**: Use `rg` or the `grep_search` tool instead of standard `grep`. Avoid full-file reads or broad directory traversals.
+3. **Vault First Search**: Search inside `/Users/uynx/ai_memory/` when looking up user profile, settings, history, or configurations.
+4. **Search Tooling**: Use `rg`.  Avoid full-file reads or broad directory traversals.
 5. **Anti-Pollution Guard**: DO NOT run broad, non-targeted text searches (e.g., wildcard greps) across the entire memory vault on startup to avoid flooding your context window with obsolete logs.
     </section>
 
     <section id="consolidation-protocol">
 ## Memory Consolidation Protocol (Write & Edge Creation)
-1. At the end of a session, identify which project(s) were modified. For each modified project:
+1. At the end of a session, for each modified project:
    * Create a daily project node at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`.
-   * Set its back-link at the bottom of the file (outside and after `</article>`) in the format:
+   * Set its back-link at the bottom of the file (after `</article>`):
      ```markdown
      **Prev**: `[[{project_name}_YYYY-MM-DD_of_previous_log]]`
      **Parent**: `[[{project_name}]]`
      ```
-   * Update the Project Overview (Head) node's pointer to link to this new daily node.
-   * Prune the `Recent Journal Logs` section in `/Users/uynx/ai_memory/index.md` to maintain only the **10 most recent logs**, keeping the index compact.
-   * **Sync Memory Vault**: Run the `memory-sync` utility ONLY once at the very end of the session/goal when all changes are finalized, rather than after every intermediate turn. You MUST write a unique, descriptive, human-sounding commit message summarizing the changes (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`) and pass it as the first argument. Do not use generic messages or default fallbacks when executing inside an AI session.
-2. **Cross-Project Linking**: If the task overlaps with or references another project or concept, append a wikilink to the bottom metadata links (e.g., `**Overlap**: `[[link]]``).
-3. **Topic Creation**: The agent is authorized to proactively create new concept/topic nodes in `/Users/uynx/ai_memory/concepts/` when it encounters new domains or significant sub-topics during ingestion or synthesis, provided the new file conforms to the HTML-wrapper formatting protocol and is indexed in `index.md`.
-4. **Provenance & Namespace Safety**:
-   * For medical/technical instructions, note the source URL or document origin in the entry.
-   * Resolve concept collisions immediately by merging duplicates or suffixing overlapping homonyms (e.g. `concept_domain`).
-   * Proactively propose promoting complex chat syntheses (comparisons, debug guides) to permanent concept nodes.
+   * Update the Project Overview node's pointer to link to this new daily node.
+   * Prune the `Recent Journal Logs` section in `/Users/uynx/ai_memory/index.md` to keep only the **10 most recent logs**.
+   * **Sync Memory Vault**: Run `memory-sync` once at the very end of the session with a unique, descriptive commit message (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`).
+2. **Cross-Project Linking**: If tasks overlap, append a wikilink at the bottom (e.g., `**Overlap**: `[[link]]``).
+3. **Topic Creation**: Create new concept nodes in `/Users/uynx/ai_memory/concepts/` for new domains, following HTML-wrapper formatting and indexing in `index.md`.
+4. **Provenance & Safety**:
+   * Note the source URL or document origin for technical/medical notes.
+   * Resolve collisions immediately by merging duplicates or using suffixes (e.g., `concept_domain`).
+   * Proactively propose promoting complex chat debug/comparison guides to permanent concept nodes.
     </section>
 
     <section id="preferred-tools">
@@ -86,13 +83,13 @@ When executing or proposing terminal commands, you must select the tool that is 
 
     <section id="slash-commands">
 ## Slash Commands Usage Guidelines
-Antigravity contains specialized slash commands. The agent must proactively prompt the user to run them in the following scenarios:
-* **`/goal` (Thorough Mode)**: Suggest when the user requests a complex, highly detailed, or long-running task where the agent must work autonomously and verify completion rigorously.
-* **`/schedule` (Recurring Tasks / Timers)**: Suggest when the user wants to run an operation periodically or set a one-time reminder.
-* **`/browser` (Web Research & Automation)**: Suggest when the task requires interactive web browsing, scraping dynamic JS pages, logging in, or manual research.
-* **`/grill-me` (Design Alignment Interview)**: Suggest when there are highly ambiguous requirements, architectural alternatives, or major design decisions.
-* **`/teamwork-preview` (Multi-Agent Workflows)**: Suggest when a large task is best executed by multiple specialized subagents working concurrently.
-* **`/learn` (Knowledge Persistence)**: Suggest after successfully debugging a complex workspace issue, setting up a rare environment dependency, or when the user corrects a recurring agent behavior.
+Proactively recommend slash commands to the user in these scenarios:
+* **`/goal` (Thorough Mode)**: For complex, highly detailed, or long-running tasks.
+* **`/schedule` (Recurring Tasks / Timers)**: For periodic operations or one-time reminders.
+* **`/browser` (Web Research & Automation)**: For interactive web browsing, JS scraping, or logins.
+* **`/grill-me` (Design Alignment Interview)**: For ambiguous requirements or major architectural options.
+* **`/teamwork-preview` (Multi-Agent Workflows)**: For parallel subagent workflows.
+* **`/learn` (Knowledge Persistence)**: After debugging complex workspace issues or correcting agent behavior.
     </section>
 
     <section id="cognitive-framework">
