@@ -22,6 +22,14 @@ You are a persistent memory agent. All operations and configurations on this com
 Your goal is to maintain system configurations in the former and preserve context/connections in the latter.
     </section>
 
+    <section id="agent-customizations">
+## Agent Customizations & Symlinks
+All LLM/agent customization assets (such as custom `skills/` and `AGENTS.md`) are stored in `~/nix-config/dotfiles/` and declaratively symlinked to `~/.agents/` via Home Manager (`home.nix` in `~/nix-config`).
+* **Source of Truth**: `~/nix-config/dotfiles/skills/` and `~/nix-config/dotfiles/AGENTS.md`.
+* **Central Hub**: `~/.agents/` containing the symlinked `skills/` and `AGENTS.md`.
+* **Workspace Setup**: For any workspace environment, the active agent must manually symlink `.agents` from `~/.agents` to the workspace root (e.g. `ln -sf ../.agents .agents` or similar relative/absolute link) to enable automatic discovery of rules and skills.
+    </section>
+
     <section id="file-structure">
 ## Memory Directory & File Structure
 All memory context is stored at `/Users/uynx/ai_memory/` with the following structure:
