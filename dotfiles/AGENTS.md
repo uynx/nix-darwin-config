@@ -22,9 +22,13 @@ Maintain system configurations in the former and preserve context/connections in
 
     <section id="agent-customizations">
 ## Agent Customizations & Symlinks
-All agent customization assets are stored in `~/nix-config/dotfiles/` and symlinked via Home Manager:
+All agent customization assets are stored in `~/nix-config/dotfiles/` and declaratively symlinked to `~/.agents/` via Home Manager:
 * **Source of Truth**: `~/nix-config/dotfiles/skills/` and `~/nix-config/dotfiles/AGENTS.md`.
 * **Central Hub**: `~/.agents/` containing the symlinked `skills/` and `AGENTS.md`.
+* **Harness Symlinking**: Active agent harnesses are linked globally to maintain a clean global-only setup and avoid workspace pollution:
+  * **Declarative via Home Manager in home.nix**:
+    * `~/.agents/AGENTS.md` and `~/.agents/skills`
+    * Each harness is symlinked to the central hub `~/.agents` so that these files are read globally in all sessions.
     </section>
 
     <section id="file-structure">
@@ -40,8 +44,8 @@ All memory context is stored at `/Users/uynx/ai_memory/` with the following stru
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: The memory system is a knowledge graph of Markdown files linked via `[[wikilinks]]`. Follow links dynamically to gather required context, stopping as soon as the technical request can be addressed.
 2. **Targeted Reads**: Do not read the entire vault at startup. Only open a project node if directly referenced or required. If mapping layout is needed, inspect `/Users/uynx/ai_memory/index.md` first.
-3. **Vault First Search**: Search inside `/Users/uynx/ai_memory/` when looking up user profile, settings, history, or configurations.
-4. **Search Tooling**: Use `rg`.  Avoid full-file reads or broad directory traversals.
+3. **Vault First Search**: ALWAYS search inside `/Users/uynx/ai_memory/` first when looking up user profile, settings, history, or configurations.
+4. **Search Tooling**: Use `rg` instead of standard `grep`. Avoid full-file reads or broad directory traversals.
 5. **Anti-Pollution Guard**: DO NOT run broad, non-targeted text searches (e.g., wildcard greps) across the entire memory vault on startup to avoid flooding your context window with obsolete logs.
     </section>
 
@@ -56,7 +60,7 @@ All memory context is stored at `/Users/uynx/ai_memory/` with the following stru
      ```
    * Update the Project Overview node's pointer to link to this new daily node.
    * Prune the `Recent Journal Logs` section in `/Users/uynx/ai_memory/index.md` to keep only the **10 most recent logs**.
-   * **Sync Memory Vault**: Run `memory-sync` once at the very end of the session with a unique, descriptive commit message (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`).
+   * **Sync Memory Vault**: Run the `memory-sync` utility ONLY once at the very end of the session/goal when all changes are finalized, rather than after every intermediate turn. You MUST write a unique, descriptive, human-sounding commit message summarizing the changes (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`) and pass it as the first argument. Do not use generic messages or default fallbacks when executing inside an AI session.
 2. **Cross-Project Linking**: If tasks overlap, append a wikilink at the bottom (e.g., `**Overlap**: `[[link]]``).
 3. **Topic Creation**: Create new concept nodes in `/Users/uynx/ai_memory/concepts/` for new domains, following HTML-wrapper formatting and indexing in `index.md`.
 4. **Provenance & Safety**:
@@ -83,13 +87,7 @@ When executing or proposing terminal commands, you must select the tool that is 
 
     <section id="slash-commands">
 ## Slash Commands Usage Guidelines
-Proactively recommend slash commands to the user in these scenarios:
-* **`/goal` (Thorough Mode)**: For complex, highly detailed, or long-running tasks.
-* **`/schedule` (Recurring Tasks / Timers)**: For periodic operations or one-time reminders.
-* **`/browser` (Web Research & Automation)**: For interactive web browsing, JS scraping, or logins.
-* **`/grill-me` (Design Alignment Interview)**: For ambiguous requirements or major architectural options.
-* **`/teamwork-preview` (Multi-Agent Workflows)**: For parallel subagent workflows.
-* **`/learn` (Knowledge Persistence)**: After debugging complex workspace issues or correcting agent behavior.
+Proactively recommend slash commands for your harness to the user when they are useful and applicable.
     </section>
 
     <section id="cognitive-framework">
