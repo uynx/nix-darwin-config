@@ -16,7 +16,7 @@ Use this skill when nix-darwin or home-manager configuration files under `/Users
    ```bash
    nix flake check --no-build /Users/uynx/nix-config
    ```
-2. **Auto-Commit and Push**: If the syntax check passes, stage the changes, generate a concise, human-sounding commit message based on the modified files (mimicking past commits such as "Updates.", "Cleanup", "Add AI memory tracking", or "Configure <feature>"), commit, and push directly to GitHub:
+2. **Auto-Commit and Push**: If the syntax check passes, stage the changes, generate a concise, human-sounding commit message based on the modified files (using caveman lite level to write it, mimicking past commits such as "Updates.", "Cleanup", "Add AI memory tracking", or "Configure <feature>"), commit, and push directly to GitHub:
    ```bash
    git add .
    git commit -m "<human_message>"

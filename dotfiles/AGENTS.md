@@ -69,7 +69,7 @@ All agent customization assets are stored in `~/nix-config/dotfiles/` and declar
      ```
    * Update the Project Overview node's pointer to link to this new daily node.
    * Prune the `Recent Journal Logs` section in `/Users/uynx/ai_memory/index.md` to keep only the **10 most recent logs**.
-   * **Sync Memory Vault**: Run the `memory-sync` utility ONLY once at the very end of the session/goal when all changes are finalized, rather than after every intermediate turn. You MUST write a unique, descriptive, human-sounding commit message summarizing the changes (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`) and pass it as the first argument. Do not use generic messages or default fallbacks when executing inside an AI session.
+   * **Sync Memory Vault**: Run the `memory-sync` utility ONLY once at the very end of the session/goal when all changes are finalized, rather than after every intermediate turn. You MUST write a unique, descriptive, human-sounding commit message summarizing the changes (using caveman lite level to write it, e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`) and pass it as the first argument. Do not use generic messages or default fallbacks when executing inside an AI session.
 2. **Cross-Project Linking**: If tasks overlap, append a wikilink at the bottom (e.g., `**Overlap**: `[[link]]``).
 3. **Topic Creation**: Create new concept nodes in `/Users/uynx/ai_memory/concepts/` for new domains, following HTML-wrapper formatting and indexing in `index.md`.
 4. **Provenance & Safety**:
