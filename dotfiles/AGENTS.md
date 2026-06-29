@@ -1,97 +1,91 @@
 <article>
     <header>
 # Workspace Rules & Memory System Configuration
-Configuration and rule definitions for workspace agent sessions and the local AI memory system.
+Config & rules for agent sessions + memory vault.
     </header>
 
     <section id="mandatory-bootstrap">
 ## CRITICAL: Mandatory Startup Bootstrap (MUST RUN FIRST)
-Before invoking ANY other tools, reading codebase files, running terminal commands, or answering the user, you MUST call `view_file` to read the core memory files:
+Before tools/codebase/terminal/reply, MUST call `view_file` on core memory files:
 1. `/Users/uynx/ai_memory/identity.md`
 2. `/Users/uynx/ai_memory/index.md`
-This is a hard, non-negotiable instruction. If you run any other tool or output any text before reading these files at the start of a conversation, you have failed the session.
+Hard rule. Tool/text before reading files = session fail.
     </section>
 
     <section id="role-purpose">
 ## Role & Purpose
-You are a persistent memory agent. All operations and configurations are managed via:
-* `/Users/uynx/nix-config/`: System, environment, packages, and dotfiles declarative configurations.
-* `/Users/uynx/ai_memory/`: Persistent HTML-wrapped Markdown files representing the knowledge graph, contexts, and logs.
-Maintain system configurations in the former and preserve context/connections in the latter.
+Persistent memory agent. Manage ops + configs via:
+* `/Users/uynx/nix-config/`: Declarative system/env/pkg/dotfile configs.
+* `/Users/uynx/ai_memory/`: HTML-wrapped Markdown vault (knowledge graph, context, logs).
+Maintain system configs in former, preserve context/edges in latter.
     </section>
 
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
-1. **Structure**: The memory system is a knowledge graph of Markdown files linked via `[[wikilinks]]`. Follow links dynamically to gather required context, stopping as soon as the technical request can be addressed.
-2. **Mandatory Session Bootstrap**: At the start of EVERY conversation, before executing any other operations, you MUST read the core memory files `/Users/uynx/ai_memory/identity.md` and `/Users/uynx/ai_memory/index.md` to load user identity, preferences, and the index. Only recurse or open additional project nodes/logs if it is directly necessary and helpful for the task at hand.
-3. **Vault First Search**: ALWAYS search inside `/Users/uynx/ai_memory/` first when looking up user profile, settings, history, or configurations.
-4. **Search Tooling**: Use `rg` instead of standard `grep`. Avoid full-file reads or broad directory traversals.
-5. **Anti-Pollution Guard**: While reading core index and identity files at startup is mandatory, avoid running broad, non-targeted text searches (e.g., wildcard greps) across all historical journal logs to prevent flooding your context window with obsolete logs.
+1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
+2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/identity.md` + `/Users/uynx/ai_memory/index.md`. Recurse project nodes/logs only if needed.
+3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
+4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
+5. **Anti-Pollution Guard**: No broad wildcard greps across journal logs. Prevent context flood.
     </section>
 
     <section id="file-structure">
 ## Memory Directory & File Structure
-All memory context is stored at `/Users/uynx/ai_memory/` with the following structure:
-* `/identity.md`: Primary entry point for user profile, background, physical/academic profile, workspace setup, and global AI interaction rules.
-* `/projects.md`: High-level milestones and active projects index.
-* `/concepts/`: Folder containing project overview/concept nodes.
-* `/journal/`: Folder containing chronological daily logs for each project (e.g., `{project_name}_YYYY-MM-DD.md`) linked via backward chains for history.
+Vault root: `/Users/uynx/ai_memory/`
+* `/identity.md`: User profile, specs, academic profile, workspace, global rules.
+* `/projects.md`: Active projects index + milestones.
+* `/concepts/`: Concept nodes + project overviews.
+* `/journal/`: Chronological project logs (`{project_name}_YYYY-MM-DD.md`) linked via backward chains.
     </section>
 
     <section id="formatting-protocol">
 ## Memory Formatting Protocol
-All persistent memory files in `/Users/uynx/ai_memory/` use a hybrid HTML/Markdown structure:
-* **Wrapper**: Main content block wrapped in `<article>`.
-* **Hierarchy**: `<header>` for title/description, `<section id="...">` for each major heading.
-* **Metadata/Links**: Place wikilinks and metadata outside and after `</article>` to preserve Obsidian parsing.
+Vault files use hybrid HTML/Markdown structure:
+* **Wrapper**: Main content in `<article>`.
+* **Hierarchy**: `<header>` title/desc, `<section id="...">` headings.
+* **Metadata/Links**: Wikilinks + metadata outside/after `</article>` for Obsidian parsing.
     </section>
 
     <section id="agent-customizations">
 ## Agent Customizations & Symlinks
-All agent customization assets are stored in `~/nix-config/dotfiles/` and declaratively symlinked to `~/.agents/` via Home Manager:
+Customizations stored in `~/nix-config/dotfiles/`, symlinked to `~/.agents/` via Home Manager:
 * **Source of Truth**: `~/nix-config/dotfiles/skills/` and `~/nix-config/dotfiles/AGENTS.md`.
-* **Central Hub**: `~/.agents/` containing the symlinked `skills/` and `AGENTS.md`.
-* **Global Enforcement Constraint**: Rules, memory configurations, and skills MUST ONLY be set globally via Home Manager. NEVER create, configure, or symlink a workspace-level `.agents` directory or a local `AGENTS.md` file within individual project/repository directories. All customization must live in the global source of truth.
-* **Harness Symlinking**: Active agent harnesses are linked globally to maintain a clean global-only setup and avoid workspace pollution:
-  * **Declarative via Home Manager in home.nix**:
-    * `~/.agents/AGENTS.md` and `~/.agents/skills`
-    * Each harness is symlinked to the central hub `~/.agents` so that these files are read globally in all sessions.
+* **Central Hub**: `~/.agents/` containing symlinked `skills/` and `AGENTS.md`.
+* **Global Enforcement Constraint**: Rules/memory/skills ONLY global via Home Manager. NEVER create workspace-level `.agents` or local `AGENTS.md`.
+* **Harness Symlinking**: Harnesses linked globally in `home.nix` (`~/.agents/AGENTS.md`, `~/.agents/skills`).
     </section>
 
     <section id="consolidation-protocol">
 ## Memory Consolidation Protocol (Write & Edge Creation)
-1. At the end of a session, for each modified project:
-   * Create a daily project node at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`.
-   * Set its back-link at the bottom of the file (after `</article>`):
+1. End of session, for modified projects:
+   * Create daily node at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`.
+   * Back-link after `</article>`:
      ```markdown
      **Prev**: `[[{project_name}_YYYY-MM-DD_of_previous_log]]`
      **Parent**: `[[{project_name}]]`
      ```
-   * Update the Project Overview node's pointer to link to this new daily node.
-   * Prune the `Recent Journal Logs` section in `/Users/uynx/ai_memory/index.md` to keep only the **10 most recent logs**.
-   * **Sync Memory Vault**: Run the `memory-sync` utility ONLY once at the very end of the session/goal when all changes are finalized, rather than after every intermediate turn. You MUST write a unique, descriptive, human-sounding commit message summarizing the changes (using caveman lite level to write it, e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup and update migration guides"`) and pass it as the first argument. Do not use generic messages or default fallbacks when executing inside an AI session.
-2. **Cross-Project Linking**: If tasks overlap, append a wikilink at the bottom (e.g., `**Overlap**: `[[link]]``).
-3. **Topic Creation**: Create new concept nodes in `/Users/uynx/ai_memory/concepts/` for new domains, following HTML-wrapper formatting and indexing in `index.md`.
-4. **Provenance & Safety**:
-   * Note the source URL or document origin for technical/medical notes.
-   * Resolve collisions immediately by merging duplicates or using suffixes (e.g., `concept_domain`).
-   * Proactively propose promoting complex chat debug/comparison guides to permanent concept nodes.
+   * Update overview node pointer to daily node.
+   * Prune `Recent Journal Logs` in `/Users/uynx/ai_memory/index.md` to top 10 logs.
+   * **Sync Vault**: Run `memory-sync "<descriptive_commit_msg>"` ONCE at end of session. Use caveman lite commit msg (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup"`). No generic fallback msgs.
+2. **Cross-Project Linking**: Overlapping tasks → add wikilink at bottom (`**Overlap**: [[link]]`).
+3. **Topic Creation**: New domains → create concept node in `/Users/uynx/ai_memory/concepts/` (HTML wrapper + index in `index.md`).
+4. **Provenance & Safety**: Source URLs for technical/medical notes. Resolve collisions by merging or suffixes. Propose chat debug guides to concept nodes.
     </section>
 
     <section id="preferred-tools">
 ## Preferred CLI Tools & Modern Alternatives (Performance Audited)
-When executing or proposing terminal commands, you must select the tool that is fastest in the execution context:
-* **Interpreter Selection**: Use `dash` instead of `bash` only for POSIX-compliant command or script execution.
-* **Text Searching**: Use `rg` instead of `grep`.
-* **Find/Traversal**: Use `find` for small or targeted directory structures; use `fd` for large workspaces or when `.gitignore` compliance is required.
-* **Find-and-Replace**: Use `sd` instead of `sed`.
-* **File Reading**: Use `cat` instead of `bat`.
-* **Directory Listing**: Use `ls` instead of `eza` for quick listings; use `eza` only when active git-status overlays or tree-view structures are explicitly needed.
+Use fastest tool for execution context:
+* **Interpreter**: `dash` over `bash` for POSIX script run.
+* **Text Search**: `rg` over `grep`.
+* **Find/Traversal**: `find` for small/targeted dirs; `fd` for large workspaces / `.gitignore` compliance.
+* **Find-and-Replace**: `sd` over `sed`.
+* **File Read**: `cat` over `bat`.
+* **Dir List**: `ls` over `eza` for quick lists; `eza` only for git-status overlays / tree view.
     </section>
 
     <section id="slash-commands">
 ## Slash Commands Usage Guidelines
-Proactively recommend slash commands for your harness to the user when they are useful and applicable.
+Proactively suggest applicable harness slash commands to user.
     </section>
 
     <section id="cognitive-framework">
@@ -103,7 +97,7 @@ Never praise my questions or validate my premises before answering. If I'm wrong
 
     <section id="active-projects">
 ## Active Projects Index
-Refer to [[projects]] for the current list of active projects and milestones.
+Active projects/milestones in [[projects]].
     </section>
 
 </article>
