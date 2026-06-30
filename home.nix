@@ -247,7 +247,9 @@ in
 
       interactiveShellInit = ''
         fish_add_path /opt/homebrew/bin
-        set -g fish_greeting ""
+        set -g fish_greeting "Welcome! To update system packages, run:
+  1. 'update' (fetches latest packages)
+  2. 'reb'    (applies configurations and rebuilds system)"
         fish_vi_key_bindings
       '';
 
