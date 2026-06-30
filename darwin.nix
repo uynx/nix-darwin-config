@@ -164,7 +164,7 @@ in
         AppleKeyboardUIMode = 3;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
 
         NSAutomaticWindowAnimationsEnabled = false;
 
@@ -192,7 +192,7 @@ in
       };
 
       dock = {
-        autohide = true;
+        autohide = false;
         autohide-delay = 0.0;
         autohide-time-modifier = 0.0;
         show-recents = false;
@@ -201,7 +201,7 @@ in
         orientation = "right";
         tilesize = 48;
         showhidden = true;
-        static-only = true;
+        static-only = false;
         mineffect = "scale";
         minimize-to-application = true;
         show-process-indicators = true;
