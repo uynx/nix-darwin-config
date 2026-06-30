@@ -415,4 +415,9 @@
       fi
     fi
   '';
+
+  home.activation.createAiBrainDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p "$HOME/ai_memory/concepts"
+    mkdir -p "$HOME/ai_memory/journal"
+  '';
 }
