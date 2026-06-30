@@ -47,12 +47,11 @@ Vault files use hybrid HTML/Markdown structure:
     </section>
 
     <section id="agent-customizations">
-## Agent Customizations & Symlinks
-Customizations stored in `~/nix-config/dotfiles/`, symlinked to `~/.agents/` via Home Manager:
-* **Source of Truth**: `~/nix-config/dotfiles/skills/` and `~/nix-config/dotfiles/AGENTS.md`.
-* **Central Hub**: `~/.agents/` containing symlinked `skills/` and `AGENTS.md`.
-* **Global Enforcement Constraint**: Rules/memory/skills ONLY global via Home Manager. NEVER create workspace-level `.agents` or local `AGENTS.md`.
-* **Harness Symlinking**: Harnesses linked globally in `home.nix` (`~/.agents/AGENTS.md`, `~/.agents/skills`).
+## Customization Source (Strict ~/.agents)
+Agent customizations MUST load from `~/.agents/`:
+* **Source of Truth**: All rule edits (`AGENTS.md`) and new/modified skills MUST be written in `~/nix-config/dotfiles/`. They are automatically symlinked to `~/.agents/` upon rebuild (`reb`).
+* **Agent Symlinking**: AI agent must manually symlink customizations from `~/.agents/` to local workspace configuration roots if needed for local context.
+* **Constraint**: NEVER write directly to local `.agents/` or local `AGENTS.md`. All modifications must commit to the source of truth in `~/nix-config/dotfiles/`.
     </section>
 
     <section id="consolidation-protocol">
