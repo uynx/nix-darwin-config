@@ -366,8 +366,8 @@ in
           untrackedCache = true;
         };
         gpg.format = "ssh";
-        commit.gpgsign = true;
-        tag.gpgsign = true;
+        commit.gpgsign = false;
+        tag.gpgsign = false;
         merge.conflictstyle = "zdiff3";
         rerere.enabled = true;
       };
