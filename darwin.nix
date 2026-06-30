@@ -247,13 +247,22 @@
       upgrade = true;
       cleanup = "zap";
     };
+    brews = [
+      "openclaw-cli"
+      "hermes-agent"
+    ];
     casks = [
+      "antigravity"
+      "antigravity-cli"
+      "claude-code"
+      "codex"
+      "cursor"
+      "cursor-cli"
+      "grok-build"
       "libreoffice"
+      "mullvad-browser"
       "protonvpn"
       "streamlabs"
-      "mullvad-browser"
-      "antigravity"
-      "cursor"
     ];
     masApps = {
       "cakewallet" = 1334702542;
