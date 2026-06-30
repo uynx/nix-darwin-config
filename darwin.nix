@@ -263,6 +263,7 @@ in
       "claude-code"
       "codex"
       "cursor"
+      "cursor-cli"
       "grok-build"
       "libreoffice"
       "mullvad-browser"
