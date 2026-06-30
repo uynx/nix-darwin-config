@@ -198,7 +198,7 @@ in
         show-recents = false;
         launchanim = false;
         mouse-over-hilite-stack = true;
-        orientation = "right";
+        orientation = "bottom";
         tilesize = 48;
         showhidden = true;
         static-only = false;
