@@ -23,7 +23,7 @@ Maintain system configs in former, preserve context/edges in latter.
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
-2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/identity.md` + `/Users/uynx/ai_memory/index.md`. Recurse project nodes/logs only if needed.
+2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/identity.md` + `/Users/uynx/ai_memory/index.md`. When working on any project, task, or configuration, the agent MUST proactively read the corresponding concept node (under `/Users/uynx/ai_memory/concepts/`) and recent daily journal logs to gather context, architecture details, and past decisions. Do not make assumptions or write code without reading memory.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
 4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
 5. **Anti-Pollution Guard**: No broad wildcard greps across journal logs. Prevent context flood.
