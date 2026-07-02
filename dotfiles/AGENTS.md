@@ -7,8 +7,7 @@ Config & rules for agent sessions + memory vault.
     <section id="mandatory-bootstrap">
 ## CRITICAL: Mandatory Startup Bootstrap (MUST RUN FIRST)
 At very start of chat session, before any tools/codebase/terminal/reply in first turn, MUST call `view_file` on core memory files:
-1. `/Users/uynx/ai_memory/identity.md`
-2. `/Users/uynx/ai_memory/index.md`
+1. `/Users/uynx/ai_memory/index.md`
 Hard rule for first turn of session. Subsequent turns in same chat do not require re-reading. Tool/text before reading files on startup = session fail.
     </section>
 
@@ -20,10 +19,33 @@ Persistent memory agent. Manage ops + configs via:
 Maintain system configs in former, preserve context/edges in latter.
     </section>
 
+    <section id="user-profile">
+## User Profile & Preferences
+* **User**: Brandon Alexander (Born March 12, 2005, Southlake, Texas; plan return Texas).
+* **Email**: `brandonwalex@pm.me`
+* **Signing Key**: `~/.ssh/id_ed25519.pub`
+* **Academic & Cognitive Profile**:
+  * CS student UMass Amherst, undergrad done in 3 years, start accelerated MS.
+  * IQ tested 150+
+  * "Lazy genius" archetype: intuitive, low study effort.
+* **Faith**: Catholic convert.
+* **Relationship**: Serious 2+ year relationship Clementine (plan marry).
+* **Keyboard**: Glove80 split keyboard (QWERTY layout).
+* **Tech Stack**:
+  * OS: macOS config declarative via `[[nix_darwin_setup]]`.
+  * Terminal: Ghostty.
+  * Shell: Fish.
+  * Editor: Neovim/LazyVim.
+* **Career Goal**: Program space industry (focus **Orbital Dynamics**, high-performance **C++**).
+* **Financial Strategy**: Stock-based comp for early retirement. Gains: NVDA, TSLA, BTC, AMD, XMR, SPCX.
+* **Privacy Stance**: Strong privacy advocate (Monero, Graphene, NixOS, Obscura/Mullvad, Qubes).
+* **Physical Training**: Bodybuilding (V-taper), Arnold Split, ATG knee hardening (`[[atg_knee_hardening]]`), TenJet recovery (`[[tenjet_recovery]]`).
+    </section>
+
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
-2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/identity.md` + `/Users/uynx/ai_memory/index.md`. When working on any project, task, or configuration, the agent MUST proactively read the corresponding concept node (under `/Users/uynx/ai_memory/concepts/`) and recent daily journal logs to gather context, architecture details, and past decisions. Do not make assumptions or write code without reading memory.
+2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/index.md`. When working on any project, task, or configuration, the agent MUST proactively read the corresponding concept node (under `/Users/uynx/ai_memory/concepts/`) and recent daily journal logs to gather context, architecture details, and past decisions. Do not make assumptions or write code without reading memory.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
 4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
 5. **Anti-Pollution Guard**: No broad wildcard greps across journal logs. Prevent context flood.
@@ -33,7 +55,6 @@ Maintain system configs in former, preserve context/edges in latter.
     <section id="file-structure">
 ## Memory Directory & File Structure
 Vault root: `/Users/uynx/ai_memory/`
-* `/identity.md`: User profile, specs, academic profile, workspace, global rules.
 * `/projects.md`: Active projects index + milestones.
 * `/concepts/`: Concept nodes and high-level project overviews (update these with architectural changes, active positions, stats, and current state).
 * `/journal/`: Chronological project logs (`{project_name}_YYYY-MM-DD.md`) linked via backward chains (use these for the nitty-gritty, granular details and accomplishments of each specific day/session).
@@ -107,4 +128,4 @@ Never praise my questions or validate my premises before answering. If I'm wrong
 
 </article>
 
-**Links**: [[identity]], [[projects]]
+**Links**: [[projects]]
