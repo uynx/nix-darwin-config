@@ -37,7 +37,7 @@ Maintain system configs in former, preserve context/edges in latter.
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
-2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/index.md`. When working on any project, task, or configuration, the agent MUST proactively read the corresponding concept node (under `/Users/uynx/ai_memory/concepts/`) and recent daily journal logs to gather context, architecture details, and past decisions. Do not make assumptions or write code without reading memory.
+2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/index.md`. To avoid context flood, do not proactively read concept nodes or recent journals for tasks unrelated to active projects. If the user's prompt is a general Q&A or ambiguous, first read `/Users/uynx/ai_memory/projects.md` and ask the user if the task belongs to an active project, a new project, or should remain unlogged, BEFORE doing any further memory reading or analysis.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
 4. **Search Tooling**: Avoid full-file reads / broad dir traversals.
 5. **Anti-Pollution Guard**: No broad wildcard rgs across journal logs. Prevent context flood.
@@ -71,7 +71,7 @@ Agent customizations MUST load from `~/.agents/`:
 
     <section id="consolidation-protocol">
 ## Memory Consolidation Protocol (Write & Edge Creation)
-1. **Proactive Logging (Absolute Rule)**: At the end of any session where ANY project, configuration, concept, or codebase has been discussed, modified, investigated, or questioned (including minor Q&As, small advice, or walkthroughs), compile a daily journal node in **caveman default** style at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`. Literally everything we do—regardless of how small or trivial the query or change is—must go into the memory vault under the relevant project/topic log.
+1. **Proactive Logging (Conditional Rule)**: ONLY compile a daily journal node if the session directly relates to an active project (confirmed by the user or highly obvious from context). For random Q&As, general advice, or code the user did not write (e.g. reviewing code snippet found online), DO NOT log the session or write files to `/Users/uynx/ai_memory/` unless explicitly requested.
    * Back-link after `</article>`:
      ```markdown
      **Prev**: `[[{project_name}_YYYY-MM-DD_of_previous_log]]`
