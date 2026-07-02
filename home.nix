@@ -159,6 +159,9 @@
 
     ".agents/AGENTS.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
+
+    ".gemini/antigravity-cli/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/antigravity-cli-settings.json";
   };
 
   services.colima = {

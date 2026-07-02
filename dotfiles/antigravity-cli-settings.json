@@ -1,0 +1,48 @@
+{
+  "allowNonWorkspaceAccess": true,
+  "altScreenMode": "always",
+  "artifactReviewPolicy": "agent-decides",
+  "enableTelemetry": false,
+  "model": "Gemini 3.5 Flash (High)",
+  "permissions": {
+    "allow": [
+      "command(sqlite3)",
+      "command(mkdir)",
+      "command(mv)",
+      "command(ln)",
+      "command(cp)",
+      "command(eza)",
+      "command(bat)",
+      "command(sd)",
+      "command(memory-sync)",
+      "command(hyperfine)",
+      "command(jq)",
+      "command(launchctl list)",
+      "command(time)",
+      "command(/Users/uynx/nix-config/dotfiles/sketchybar/plugins/weather.sh)",
+      "command(/run/current-system/sw/bin/sketchybar)",
+      "command(/Users/uynx/.nix-profile/bin/aerospace)",
+      "command(python3 /Users/uynx/.gemini/antigravity-cli/brain/87695aec-50ab-48b7-87a3-f24133cd8bcb/scratch/test_quickselect_import.py)",
+      "command(python3 /Users/uynx/.gemini/config/skills/memory-lint/scripts/lint_memory.py)",
+      "command(launchctl unload ~/Library/LaunchAgents/org.nixos.sketchybar.plist)",
+      "command(launchctl load)",
+      "command(darwin-rebuild)",
+      "command(sudo darwin-rebuild switch --flake ~/nix-config#macos)",
+      "command(killall SystemUIServer Finder Dock)",
+      "command(id)",
+      "command(osascript)",
+      "command(who)",
+      "command(w)",
+      "command(ls)",
+      "command(type)"
+    ]
+  },
+  "runningLightSpeed": "fast",
+  "showFeedbackSurvey": false,
+  "toolPermission": "always-proceed",
+  "trustedWorkspaces": [
+    "/Users/uynx/nix-config",
+    "/Users/uynx"
+  ],
+  "verbosity": "low"
+}
