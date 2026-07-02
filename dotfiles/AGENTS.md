@@ -35,8 +35,8 @@ Maintain system configs in former, preserve context/edges in latter.
 Vault root: `/Users/uynx/ai_memory/`
 * `/identity.md`: User profile, specs, academic profile, workspace, global rules.
 * `/projects.md`: Active projects index + milestones.
-* `/concepts/`: Concept nodes + project overviews.
-* `/journal/`: Chronological project logs (`{project_name}_YYYY-MM-DD.md`) linked via backward chains.
+* `/concepts/`: Concept nodes and high-level project overviews (update these with architectural changes, active positions, stats, and current state).
+* `/journal/`: Chronological project logs (`{project_name}_YYYY-MM-DD.md`) linked via backward chains (use these for the nitty-gritty, granular details and accomplishments of each specific day/session).
     </section>
 
     <section id="formatting-protocol">
