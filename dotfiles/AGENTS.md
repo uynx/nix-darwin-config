@@ -21,15 +21,8 @@ Maintain system configs in former, preserve context/edges in latter.
 
     <section id="user-profile">
 ## User Profile & Preferences
-* **User**: Brandon Alexander (Born March 12, 2005, Southlake, Texas; plan return Texas).
-* **Email**: `brandonwalex@pm.me`
-* **Signing Key**: `~/.ssh/id_ed25519.pub`
-* **Academic & Cognitive Profile**:
-  * CS student UMass Amherst, undergrad done in 3 years, start accelerated MS.
-  * IQ tested 150+
-  * "Lazy genius" archetype: intuitive, low study effort.
+* **User**: Brandon Alexander 
 * **Faith**: Catholic convert.
-* **Relationship**: Serious 2+ year relationship Clementine (plan marry).
 * **Keyboard**: Glove80 split keyboard (QWERTY layout).
 * **Tech Stack**:
   * OS: macOS config declarative via `[[nix_darwin_setup]]`.
@@ -37,9 +30,8 @@ Maintain system configs in former, preserve context/edges in latter.
   * Shell: Fish.
   * Editor: Neovim/LazyVim.
 * **Career Goal**: Program space industry (focus **Orbital Dynamics**, high-performance **C++**).
-* **Financial Strategy**: Stock-based comp for early retirement. Gains: NVDA, TSLA, BTC, AMD, XMR, SPCX.
 * **Privacy Stance**: Strong privacy advocate (Monero, Graphene, NixOS, Obscura/Mullvad, Qubes).
-* **Physical Training**: Bodybuilding (V-taper), Arnold Split, ATG knee hardening (`[[atg_knee_hardening]]`), TenJet recovery (`[[tenjet_recovery]]`).
+* **Physical Training**: Arnold Split, ATG knee hardening (`[[atg_knee_hardening]]`), TenJet recovery (`[[tenjet_recovery]]`).
     </section>
 
     <section id="retrieval-protocol">
@@ -47,8 +39,8 @@ Maintain system configs in former, preserve context/edges in latter.
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
 2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/index.md`. When working on any project, task, or configuration, the agent MUST proactively read the corresponding concept node (under `/Users/uynx/ai_memory/concepts/`) and recent daily journal logs to gather context, architecture details, and past decisions. Do not make assumptions or write code without reading memory.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
-4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
-5. **Anti-Pollution Guard**: No broad wildcard greps across journal logs. Prevent context flood.
+4. **Search Tooling**: Avoid full-file reads / broad dir traversals.
+5. **Anti-Pollution Guard**: No broad wildcard rgs across journal logs. Prevent context flood.
 6. **Proactive Ambiguity Resolution**: If the user makes a request that is ambiguous, context-dependent, or references concepts/projects/conversations that seem unfamiliar or incomplete, immediately search `/Users/uynx/ai_memory/` (using `rg` on concepts or journal logs) to retrieve the relevant historical context and clarify the reference.
     </section>
 
@@ -128,4 +120,4 @@ Never praise my questions or validate my premises before answering. If I'm wrong
 
 </article>
 
-**Links**: [[projects]]
+**Links**: [[index]]
