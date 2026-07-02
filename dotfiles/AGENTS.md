@@ -66,6 +66,7 @@ Agent customizations MUST load from `~/.agents/`:
      ```
    * Update overview node pointer to daily node.
    * Prune `Recent Journal Logs` in `/Users/uynx/ai_memory/index.md` to top 10 logs.
+   * **Memory Pruning**: Proactively edit or prune daily logs and concepts to remove obsolete info, wrong assumptions, or unhelpful noise that wastes context. Keep documented mistakes, bugs, or wrong approaches only if they serve as a valuable "future lesson" or troubleshooting reference.
    * **Sync Vault**: Run `memory-sync "<descriptive_commit_msg>"` ONCE at end of session. Use caveman lite commit msg (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup"`). No generic fallback msgs.
 2. **Cross-Project Linking**: Overlapping tasks → add wikilink at bottom (`**Overlap**: [[link]]`).
 3. **Topic Creation**: New domains → create concept node in `/Users/uynx/ai_memory/concepts/` (HTML wrapper + index in `index.md`).
