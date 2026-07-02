@@ -10,6 +10,7 @@ Use this skill when nix-darwin or home-manager configuration files under `/Users
 ## When to Trigger
 - Trigger this skill automatically after modifying `.nix` configuration files in the workspace.
 - Can be manually invoked by saying "rebuild nix config" or similar.
+- **Note**: Modifying `AGENTS.md` does not require a rebuild (`reb`) because it is symlinked; changes take effect immediately.
 
 ## Action Steps
 1. **Verify Syntax**: Run `nix flake check` to verify configuration syntax:
