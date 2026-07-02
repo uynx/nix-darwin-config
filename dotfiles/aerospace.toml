@@ -78,7 +78,7 @@ outer.left = 6
 outer.bottom = 6
 outer.top = [
   { monitor."Built-in Retina Display" = 6 },
-  12
+  40
 ]
 outer.right = 6
 

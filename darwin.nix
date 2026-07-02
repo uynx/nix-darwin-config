@@ -158,6 +158,7 @@
         AppleKeyboardUIMode = 3;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
+        _HIHideMenuBar = true;
 
         NSAutomaticWindowAnimationsEnabled = false;
 
@@ -248,6 +249,7 @@
     };
     casks = [
       "antigravity"
+      "antigravity-cli"
       "cursor"
       "grok-build"
       "libreoffice"

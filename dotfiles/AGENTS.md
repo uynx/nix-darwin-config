@@ -27,6 +27,7 @@ Maintain system configs in former, preserve context/edges in latter.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
 4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
 5. **Anti-Pollution Guard**: No broad wildcard greps across journal logs. Prevent context flood.
+6. **Proactive Ambiguity Resolution**: If the user makes a request that is ambiguous, context-dependent, or references concepts/projects/conversations that seem unfamiliar or incomplete, immediately search `/Users/uynx/ai_memory/` (using `rg` on concepts or journal logs) to retrieve the relevant historical context and clarify the reference.
     </section>
 
     <section id="file-structure">
@@ -44,6 +45,7 @@ Vault files use hybrid HTML/Markdown structure:
 * **Wrapper**: Main content in `<article>`.
 * **Hierarchy**: `<header>` title/desc, `<section id="...">` headings.
 * **Metadata/Links**: Wikilinks + metadata outside/after `</article>` for Obsidian parsing.
+* **Style**: Write all memory vault contents (journal entries, logs, concept updates, summaries) in **caveman default** (full) style (e.g. drop articles, use verb/noun fragments, keep technical terms/paths intact). Do not use normal markdown narrative style inside the memory vault.
     </section>
 
     <section id="agent-customizations">
@@ -56,8 +58,7 @@ Agent customizations MUST load from `~/.agents/`:
 
     <section id="consolidation-protocol">
 ## Memory Consolidation Protocol (Write & Edge Creation)
-1. End of session, for modified projects:
-   * Create daily node at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`.
+1. **Proactive Logging (Absolute Rule)**: At the end of any session where ANY project, configuration, concept, or codebase has been discussed, modified, investigated, or questioned (including minor Q&As, small advice, or walkthroughs), compile a daily journal node in **caveman default** style at `/Users/uynx/ai_memory/journal/{project_name}_YYYY-MM-DD.md`. Literally everything we do—regardless of how small or trivial the query or change is—must go into the memory vault under the relevant project/topic log.
    * Back-link after `</article>`:
      ```markdown
      **Prev**: `[[{project_name}_YYYY-MM-DD_of_previous_log]]`
@@ -69,6 +70,7 @@ Agent customizations MUST load from `~/.agents/`:
 2. **Cross-Project Linking**: Overlapping tasks → add wikilink at bottom (`**Overlap**: [[link]]`).
 3. **Topic Creation**: New domains → create concept node in `/Users/uynx/ai_memory/concepts/` (HTML wrapper + index in `index.md`).
 4. **Provenance & Safety**: Source URLs for technical/medical notes. Resolve collisions by merging or suffixes. Propose chat debug guides to concept nodes.
+5. **ChatGPT-Style Background Memory Updates (Every Prompt)**: Proactively evaluate almost every turn/prompt for extractable facts, preference changes, configurations, tool usages, or bio details. Perform these memory updates in the background automatically. If new information or a topic does not fit into any existing project or concept node, proactively ask the user to initialize a new project or concept node to organize it.
     </section>
 
     <section id="preferred-tools">
