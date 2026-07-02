@@ -313,7 +313,8 @@
     fzf = {
       enable = true;
       enableFishIntegration = true;
-      changeDirWidgetCommand = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      changeDirWidget.command = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      historyWidget.command = "";
     };
 
     ripgrep = {
