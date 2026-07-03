@@ -6,10 +6,7 @@ Config & rules for agent sessions + memory vault.
 
     <section id="mandatory-bootstrap">
 ## CRITICAL: Mandatory Startup Bootstrap (MUST RUN FIRST)
-At very start of chat session, before any tools/codebase/terminal/reply in first turn:
-1. MUST invoke Skill `caveman` — this IS not optional. Run `/caveman reasoning wenyan-ultra`, independent of visible-reply level — applies ONLY to internal reasoning, never to user-facing text. This bootstrap call sets the reasoning dial ONLY. Visible-reply chat stays normal English by default — do NOT let it fall back to the skill's "full" default just because the skill was invoked. Visible-reply caveman turns on only if user explicitly asks (types `/caveman`, says "caveman mode"/"be brief"/"less tokens", etc).
-2. MUST read `/Users/uynx/ai_memory/index.md` and `/Users/uynx/.agents/skills/caveman/SKILL.md`.
-Hard rule for first turn of session. Subsequent turns in same chat do not require re-reading. Tool/text before reading files on startup = session fail.
+* **Trigger**: At the very start of a chat session, before running any other commands or outputting text, you MUST activate and execute the `bootstrap` skill to initialize your reasoning trace and base memory. Required on the first turn of every session.
     </section>
 
     <section id="role-purpose">
