@@ -14,7 +14,21 @@ Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift. Still active if unsure. Off only: "stop caveman" / "normal mode".
 
-Default: **full**. Switch: `/caveman lite|full|ultra`.
+Visible-reply dial starts OFF (normal English) every session. Turns on ONLY via explicit user trigger — user types `/caveman`, says "caveman mode"/"talk like caveman"/"be brief"/"less tokens", or invokes visible-reply level directly. Once user triggers it, default level: **full**. Switch: `/caveman lite|full|ultra`.
+
+Invoking this skill to set the reasoning-trace dial alone (args start with `reasoning`) must NEVER activate or change the visible-reply dial as a side effect — the two dials are independent, see below. If visible-reply was never explicitly triggered by the user, it stays normal English regardless of what the reasoning dial is set to.
+
+## Reasoning-Trace Mode (Hidden Thinking)
+
+Two independent dials, not one — visible replies and hidden reasoning/thinking-step tokens set separately:
+
+| Dial | Governs | Set | Turn off |
+|------|---------|-----|----------|
+| **Visible-reply** | What user reads | `/caveman lite\|full\|ultra\|wenyan-lite\|wenyan-full\|wenyan-ultra` | `/caveman normal` (or "stop caveman") |
+| **Reasoning-trace** | Hidden internal reasoning/thinking tokens only, never shown to user | `/caveman reasoning <level>` (same level names) | `/caveman reasoning normal` (or `/caveman reasoning off`) |
+| **Both at once** | — | — | `/caveman off` — visible replies AND reasoning trace both plain English |
+
+Session default (per AGENTS.md bootstrap): reasoning-trace dial locked to `wenyan-ultra` always, independent of whatever visible-reply level active. Setting visible-reply level alone (`/caveman <level>`) does NOT change reasoning-trace dial — address it separately. Reasoning-trace content never reaches user-facing text; it governs internal thinking-step tokens only.
 
 ## Rules
 
