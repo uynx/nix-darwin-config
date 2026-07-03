@@ -37,15 +37,15 @@ Maintain system configs in former, preserve context/edges in latter.
 
     <section id="coding-default">
 ## CRITICAL: Ponytail Default for ALL Code (MUST ACTIVATE EVERY TIME)
-Before writing any code, any language, any purpose (scripts, config, HTML/CSS/JS, automation, one-off snippets) — explicitly invoke Skill `ponytail` (default level) first, every time, not just when Brandon says "be lazy" or "keep it simple." Applies everywhere. Simplest working solution, YAGNI, no unrequested abstraction — standing default, not opt-in.
+Before writing any code, any language, any purpose (scripts, config, HTML/CSS/JS, automation, one-off snippets) — explicitly invoke Skill `ponytail` (default level). 
     </section>
 
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
-2. **Mandatory Session Bootstrap**: Session start = MUST read `/Users/uynx/ai_memory/index.md`. To avoid context flood, do not proactively read concept nodes or recent journals for tasks unrelated to active projects. If user's prompt is general Q&A or ambiguous, first read `/Users/uynx/ai_memory/projects.md` and ask user if task belongs to active project, new project, or should stay unlogged, BEFORE further memory reading or analysis.
+2. **Avoid Context Flood**: Do not proactively read concept nodes or recent journals for tasks unrelated to active projects. If user's prompt is general Q&A or ambiguous, first read `/Users/uynx/ai_memory/projects.md` and ask user if task belongs to active project, new project, or should stay unlogged, BEFORE further memory reading or analysis.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
-4. **Search Tooling**: Use `rg` not `grep`. Avoid full-file reads / broad dir traversals.
+4. **Search Tooling**: Avoid full-file reads or broad directory traversals.
 5. **Anti-Pollution Guard**: No broad wildcard rgs across journal logs. Prevent context flood.
 6. **Proactive Ambiguity Resolution**: If user makes request that's ambiguous, context-dependent, or references concepts/projects/conversations that seem unfamiliar or incomplete, immediately search `/Users/uynx/ai_memory/` (using `rg` on concepts or journal logs) to retrieve relevant historical context and clarify reference.
     </section>
@@ -64,7 +64,7 @@ Vault files use hybrid HTML/Markdown structure:
 * **Wrapper**: Main content in `<article>`.
 * **Hierarchy**: `<header>` title/desc, `<section id="...">` headings.
 * **Metadata/Links**: Wikilinks + metadata outside/after `</article>` for Obsidian parsing.
-* **Style — HARD RULE, not preference**: Skill `caveman` MUST be invoked at session bootstrap (see Mandatory Startup Bootstrap above) and MUST stay active for every write to `/Users/uynx/ai_memory/` (journal entries, concept updates, `index.md`, `projects.md` — no exceptions). Full sentences with articles = compliance failure here, not tone choice. Before saving any memory file, re-scan draft line by line for "the/a/an" and filler words, cut them — mandatory every time, not just when told. Quoted scripts/CTAs/literal UI copy exempt (keep verbatim).
+* **Style — HARD RULE, not preference**: Skill `/caveman` (default level) MUST be invoked for every memory edit to `/Users/uynx/ai_memory/` (journal entries, concept updates, `index.md`, `projects.md` — no exceptions), and disabled/turned off (`/caveman off` or "stop caveman") when done. Full sentences with articles = compliance failure here, not tone choice. Before saving any memory file, re-scan draft line by line for "the/a/an" and filler words, cut them — mandatory every time, not just when told. Quoted scripts/CTAs/literal UI copy exempt (keep verbatim).
 * **AGENTS.md Is the Model**: This whole file (aside from Cognitive Performance & Verification Framework section, which stays as Brandon wrote it) is written per Skill `caveman` default level. Memory writes should look like THIS document reads — dense, fragment-heavy, zero filler — not looser prose. If unsure what "caveman enough" looks like, reread any section here — that's bar.
 * **AGENTS.md Counts as Memory Too**: Memory Consolidation Protocol's proactive-update duty covers this file, not just `ai_memory/`. Standing-rule edits here are memory update — same MUST-stay-active caveman discipline, same self-check before saving.
     </section>
@@ -76,7 +76,7 @@ Agent customizations MUST load from `~/.agents/`:
 * **Agent Symlinking**: AI agent must manually symlink customizations from `~/.agents/` to local workspace configuration roots if needed for local context.
 * **Constraint**: All modifications to global agent rules and skills must commit to source of truth in `~/nix-config/dotfiles/`. Project-specific rules can be written locally.
 * **Standing Rules Go Here, Not `ai_memory`**: Any time session establishes new durable/standard rule meant to apply across future sessions (corrected mistake, confirmed workflow preference, "do it this way going forward" instruction), write into `~/nix-config/dotfiles/AGENTS.md`, not into `ai_memory` concept/journal notes. `ai_memory` = project state, history, context (what happened, what's active); `AGENTS.md` = behavioral rules (how to act). After editing, run `Nix-Darwin Config Rebuild` skill (verify/commit/push), tell Brandon to run `reb` so rule takes effect. Project-specific concept node may still narrate incident that prompted rule, but rule itself belongs here.
-* **When Brandon Explicitly Says "Remember This"**: Ask whether it should apply everywhere (goes in this `AGENTS.md`, global) or only current project (goes in relevant `ai_memory` concept/journal note). Don't assume scope either way — same phrasing ("remember I prefer X") could mean either, two destinations behave very differently (global rule vs. project-scoped context).
+* **When Brandon Explicitly Says "Remember This"**: Ask whether it should apply everywhere (goes in this `AGENTS.md`, global) or only current project (goes in relevant `ai_memory` concept/journal note). Assume scope if its obvious. 
     </section>
 
     <section id="consolidation-protocol">
@@ -115,21 +115,26 @@ All app installs go through `~/nix-config`, never manual/App Store/direct downlo
 1. Check nixpkgs first for `aarch64-darwin` support (`nix search nixpkgs <name>` or search.nixos.org). If exists and builds -> add to `home.packages` in `~/nix-config/home.nix`.
 2. No `aarch64-darwin` nixpkg -> add via Homebrew in `~/nix-config/darwin.nix` (`homebrew.brews` for CLI, `homebrew.casks` for GUI apps).
 3. AI app that updates often (Claude, ChatGPT, Cursor, Codex, Antigravity, etc.) -> ALWAYS Homebrew in `darwin.nix`, even if nixpkg exists. Nix pins versions; fast-moving AI apps go stale/break under pin.
-4. After package, service, or system-setting `.nix` edit, run `Nix-Darwin Config Rebuild` skill: verify with `nix flake check --no-build /Users/uynx/nix-config`, commit/push, tell Brandon to run `reb` (`sudo darwin-rebuild switch --flake ~/nix-config#macos`) in his terminal. Only Brandon runs `reb`/`sudo`; agents never do.
+4. After any `.nix` config edit, run `Nix-Darwin Config Rebuild` skill. Only Brandon runs `reb`/`sudo`; agents never do.
     </section>
 
     <section id="git-workflow-config-changes">
 ## Git Workflow for Config & Memory Changes
-Any `home.nix`/`darwin.nix` edit (app install or otherwise), or any `ai_memory` edit, MUST get git commit before session ends, message in normal English (per caveman skill's own boundary: commits/code/PRs stay normal, not caveman):
-* `nix-config`: `git -C ~/nix-config add -A && git commit -m "<normal msg>"`. Push if `origin` reachable and `gh auth status` OK; otherwise note push blocked, don't fail silently.
-* `ai_memory`: use `memory-sync "<normal msg>"` (handles add/commit/push; no-ops push if no remote).
-* For `.nix` config edits adding packages, changing services, or otherwise needing activation: always follow `Nix-Darwin Config Rebuild` skill before final response, tell Brandon to run `reb`. Don't tell Brandon to run `reb` for ordinary AGENTS.md/rule/memory wording edits unless changes need on-disk activation.
+Any `nix-config` or `ai_memory` edit MUST get git commit before session ends (messages in normal English):
+* `.nix` Config Edits: Automatically handled by invoking `Nix-Darwin Config Rebuild` skill.
+* Wording & Rule Edits (e.g., `AGENTS.md`): Stage, commit, and push manually (`git -C ~/nix-config add -A && git commit -m "<normal msg>"`). Do NOT ask Brandon to run `reb` for these.
+* Memory Edits: Synchronize via `memory-sync "<normal msg>"`.
     </section>
 
     <section id="skill-and-connector-suggestions">
 ## Suggest Skills & Look For Connectors
 * If any available skill would clearly help with what Brandon is asking, say so, offer it — don't quietly solve generically instead.
 * Before assuming no connector exists for service he needs, check `mcp-registry` (`search_mcp_registry` / `suggest_connectors`) first — don't guess "no" without looking.
+    </section>
+
+    <section id="dev-server-hygiene">
+## Dev Server Hygiene
+When starting a local dev server or static preview server, manually stop it when no longer needed. If the server must remain running so Brandon can view/test a webpage after the response, every final message in that chat while it remains running MUST end with this reminder: "The dev server is running on your computer. If you are done working, let me know so I can turn it off."
     </section>
 
     <section id="slash-commands">
