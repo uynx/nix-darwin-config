@@ -11,7 +11,7 @@ Follow these rules when writing to, editing, or synchronizing the `/Users/uynx/a
 * **HTML Wrapper**: Main content MUST be wrapped in `<article>`.
   * Hierarchy: `<header>` for title/description, `<section id="...">` for subsections.
   * Links & Metadata: Put Obsidian `[[wikilinks]]` outside/after the `</article>` wrapper.
-* **Caveman Tone**: Skill `/caveman` (default level) MUST be active for every memory edit (journal, concepts, `index.md`, `projects.md`). Disable when done.
+* **Caveman Tone**: Skill `/caveman` (default level) MUST be active for every memory edit (journal, concepts, `index.md`). Disable when done.
 * **Terseness**: Write dense, fragment-heavy prose. No articles ("the/a/an") or filler words.
 * **Scope**: These formatting rules also apply to `AGENTS.md` itself when edited.
 * **Clickable file:/// Links**: When documenting modifications to codebase or configuration files in journals or concepts, always use clickable `file:///` links (e.g., `[filename](file:///path/to/file)`). Do not document changes with plain text paths.

@@ -40,7 +40,7 @@ Before writing any code, any language, any purpose (scripts, config, HTML/CSS/JS
     <section id="retrieval-protocol">
 ## Memory Retrieval Protocol (Read & Traverse)
 1. **Structure**: Knowledge graph linked via `[[wikilinks]]`. Traverse dynamically for context; stop when task satisfied.
-2. **Avoid Context Flood**: Do not proactively read concept nodes or recent journals for tasks unrelated to active projects. If user's prompt is general Q&A or ambiguous, first read `/Users/uynx/ai_memory/projects.md` and ask user if task belongs to active project, new project, or should stay unlogged, BEFORE further memory reading or analysis.
+2. **Avoid Context Flood**: Do not proactively read concept nodes or recent journals for tasks unrelated to active projects. If user's prompt is general Q&A or ambiguous, first read `/Users/uynx/ai_memory/index.md` (specifically the Active Projects section) and ask user if task belongs to active project, new project, or should stay unlogged, BEFORE further memory reading or analysis.
 3. **Vault First Search**: Search `/Users/uynx/ai_memory/` first for user profile/settings/history/configs.
 4. **Search Tooling**: Avoid full-file reads or broad directory traversals.
 5. **Anti-Pollution Guard**: No broad wildcard rgs across journal logs. Prevent context flood.
@@ -50,7 +50,7 @@ Before writing any code, any language, any purpose (scripts, config, HTML/CSS/JS
     <section id="file-structure">
 ## Memory Directory & File Structure
 Vault root: `/Users/uynx/ai_memory/`
-* `/projects.md`: Active projects index + milestones.
+* `/index.md`: Central map containing active projects list, concept list, and recent logs.
 * `/concepts/`: Concept nodes and high-level project overviews (update with architectural changes, active positions, stats, current state).
 * `/journal/`: Chronological project logs (`{project_name}_YYYY-MM-DD.md`) linked via backwards chains (use for nitty-gritty, granular details and accomplishments of each specific day/session).
     </section>

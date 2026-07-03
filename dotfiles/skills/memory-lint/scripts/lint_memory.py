@@ -49,15 +49,15 @@ def audit_vault():
         lines = content.splitlines()
         
         # Check if indexed in index.md (skip journals since they are pruned to 10 most recent)
-        if rel_path not in ["index.md", "projects.md"] and not rel_path.startswith("journal/") and name not in indexed_notes:
+        if rel_path not in ["index.md"] and not rel_path.startswith("journal/") and name not in indexed_notes:
             warnings.append(f"{rel_path}: Note is not indexed in index.md")
 
         # Check staleness
         mtime = os.path.getmtime(filepath)
         days_since_mod = (time.time() - mtime) / (24 * 3600)
         
-        # Check staleness for concepts or active projects list
-        if rel_path.startswith("concepts/") or rel_path in ["projects.md"]:
+        # Check staleness for concepts or the central index
+        if rel_path.startswith("concepts/") or rel_path in ["index.md"]:
             if days_since_mod > STALE_DAYS:
                 stale_notes.append((rel_path, int(days_since_mod)))
 
