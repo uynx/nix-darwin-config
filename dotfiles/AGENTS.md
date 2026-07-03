@@ -57,13 +57,7 @@ Vault root: `/Users/uynx/ai_memory/`
 
     <section id="formatting-protocol">
 ## Memory Formatting Protocol
-Vault files use hybrid HTML/Markdown structure:
-* **Wrapper**: Main content in `<article>`.
-* **Hierarchy**: `<header>` title/desc, `<section id="...">` headings.
-* **Metadata/Links**: Wikilinks + metadata outside/after `</article>` for Obsidian parsing.
-* **Style — HARD RULE, not preference**: Skill `/caveman` (default level) MUST be invoked for every memory edit to `/Users/uynx/ai_memory/` (journal entries, concept updates, `index.md`, `projects.md` — no exceptions), and disabled/turned off (`/caveman off` or "stop caveman") when done. Full sentences with articles = compliance failure here, not tone choice. Before saving any memory file, re-scan draft line by line for "the/a/an" and filler words, cut them — mandatory every time, not just when told. Quoted scripts/CTAs/literal UI copy exempt (keep verbatim).
-* **AGENTS.md Is the Model**: This whole file (aside from Cognitive Performance & Verification Framework section, which stays as Brandon wrote it) is written per Skill `caveman` default level. Memory writes should look like THIS document reads — dense, fragment-heavy, zero filler — not looser prose. If unsure what "caveman enough" looks like, reread any section here — that's bar.
-* **AGENTS.md Counts as Memory Too**: Memory Consolidation Protocol's proactive-update duty covers this file, not just `ai_memory/`. Standing-rule edits here are memory update — same MUST-stay-active caveman discipline, same self-check before saving.
+* **Rule**: All modifications to memory files and `AGENTS.md` rules must comply with the formatting and Caveman style instructions outlined in the `memory-consolidation` skill.
     </section>
 
     <section id="agent-customizations">

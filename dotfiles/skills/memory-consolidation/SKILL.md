@@ -7,9 +7,13 @@ description: Use this skill when executing the memory consolidation protocol, co
 
 Follow these rules when writing to, editing, or synchronizing the `/Users/uynx/ai_memory/` vault.
 
-## 1. Style Guide (Mandatory Caveman)
-* **Rule**: Skill `/caveman` (default level) MUST be active for every memory edit (journal entries, concept updates, `index.md`, `projects.md`). Disable when done.
-* **Terseness**: Write dense, fragment-heavy prose with zero filler. Run a final sweep to cut all articles ("the", "a", "an") and filler words before saving.
+## 1. Vault Formatting & Style Guide (Mandatory Caveman)
+* **HTML Wrapper**: Main content MUST be wrapped in `<article>`.
+  * Hierarchy: `<header>` for title/description, `<section id="...">` for subsections.
+  * Links & Metadata: Put Obsidian `[[wikilinks]]` outside/after the `</article>` wrapper.
+* **Caveman Tone**: Skill `/caveman` (default level) MUST be active for every memory edit (journal, concepts, `index.md`, `projects.md`). Disable when done.
+* **Terseness**: Write dense, fragment-heavy prose. No articles ("the/a/an") or filler words.
+* **Scope**: These formatting rules also apply to `AGENTS.md` itself when edited.
 
 ## 2. Proactive Logging Protocol
 * **Trigger**: Only compile a daily journal node if the session directly relates to an active project. For general Q&As or general advice, DO NOT log or write to `/Users/uynx/ai_memory/`.
