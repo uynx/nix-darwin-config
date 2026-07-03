@@ -57,7 +57,7 @@ Vault root: `/Users/uynx/ai_memory/`
 
     <section id="formatting-protocol">
 ## Memory Formatting Protocol
-* **Rule**: All modifications to memory files and `AGENTS.md` rules must comply with the formatting and Caveman style instructions outlined in the `memory-consolidation` skill.
+* **Rule**: All modifications to memory files and `AGENTS.md` rules must comply with the formatting and Caveman style instructions outlined in the `memory-consolidation` skill. Specifically, you MUST explicitly invoke the `caveman` skill (default level) for writing/editing these files to enforce compressed, direct caveman style.
     </section>
 
     <section id="agent-customizations">
@@ -74,6 +74,9 @@ Agent customizations MUST load from `~/.agents/`:
 ## Memory Consolidation Protocol (Write & Edge Creation)
 * **Trigger**: When writing, updating, structuring, or syncing the `/Users/uynx/ai_memory/` vault, you MUST activate the `memory-consolidation` skill.
 * **Preference Updates**: Automatically extract and note personal preferences, configurations, or bio details from prompts. If a new preference/fact doesn't fit existing projects, ask the user to initialize a new project/concept.
+* **Skills vs. Main Memory Boundary**:
+  * **Main Memory (under `/Users/uynx/ai_memory/`)**: Store declarative context, user profiles, hardware/tech setups, active project states, and wealth tracking.
+  * **Agent Skills (under `~/nix-config/dotfiles/skills/`)**: Store procedural instructions, execution flows, command-selection diagnostic trees (e.g., CLI tools), standard linting flows, and step-by-step checklists.
     </section>
 
     <section id="preferred-tools">
