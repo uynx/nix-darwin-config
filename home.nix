@@ -413,4 +413,14 @@
     mkdir -p "$HOME/ai_memory/concepts"
     mkdir -p "$HOME/ai_memory/journal"
   '';
+
+  home.activation.setFileAssociations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "${pkgs.duti}/bin/duti" ]; then
+      "${pkgs.duti}/bin/duti" -s com.vscodium public.plain-text all
+      "${pkgs.duti}/bin/duti" -s com.vscodium net.daringfireball.markdown all
+      for ext in txt md markdown nix json yaml yml toml sh py cpp h; do
+        "${pkgs.duti}/bin/duti" -s com.vscodium "$ext" all 2>/dev/null || true
+      done
+    fi
+  '';
 }
