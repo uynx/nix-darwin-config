@@ -7,10 +7,11 @@ description: Mandatory startup initialization. Run this skill first on session s
 
 To initialize the session properly, you MUST execute the following operations in your first turn:
 
-1. **Reasoning Trace Activation**:
-   * Set your reasoning-trace dial to `wenyan-ultra` by calling:
+1. **Caveman & Reasoning Activation**:
+   * Set your visible-reply dial to `full` (caveman default) by calling:
+     `/caveman full`
+   * Set your reasoning-trace dial to `wenyan-ultra` (ultra Chinese reasoning) by calling:
      `/caveman reasoning wenyan-ultra`
-   * *Note*: This applies ONLY to your internal thinking tags, never to user-facing text.
 
 2. **Context Seeding**:
    * View the root index of your memory vault:
