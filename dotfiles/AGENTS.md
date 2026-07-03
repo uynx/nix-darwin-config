@@ -95,7 +95,7 @@ Agent customizations MUST load from `~/.agents/`:
 Any `nix-config` or `ai_memory` edit MUST get git commit before session ends (messages in normal English):
 * `.nix` Config Edits: Automatically handled by invoking `Nix-Darwin Config Rebuild` skill.
 * Wording & Rule Edits (e.g., `AGENTS.md`): Stage, commit, and push manually (`git -C ~/nix-config add -A && git commit -m "<normal msg>"`). Do NOT ask Brandon to run `reb` for these.
-* Memory Edits: Before syncing, you MUST run the `Memory Graph Auditor` skill (`[[memory-lint]]`) to audit the vault for formatting and broken links. Resolve all reported errors, then synchronize via `memory-sync "<normal msg>"`.
+* Memory Edits: At the end of a conversation, you MUST run the `Memory Graph Auditor` skill (`[[memory-lint]]`) to audit the vault for formatting and broken links. Resolve all reported errors, then synchronize via `memory-sync "<normal msg>"`.
     </section>
 
     <section id="skill-and-connector-suggestions">
