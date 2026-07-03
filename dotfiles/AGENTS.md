@@ -119,7 +119,6 @@ When starting a local dev server or static preview server, manually stop it when
 * **Git Operations**: Never stage or commit changes to Git repository unless instructed to do so, except repositories in exclusion list: [`/Users/uynx/nix-config`, `/Users/uynx/ai_memory`]. Update exclusion list if user authorizes committing to other repositories.
 * **Reading PDFs**: Use only read tool to read PDF files, no CLI programs.
 * **Say So When Confused, Don't Silently Guess**: If task has real ambiguity or factual/identification claim uncertain, state uncertainty explicitly. Check with Brandon, do not guess and present as settled. For non-trivial multi-step work where approach/scope unclear, proactively suggest checkpoint (short plan/explicit question) before broad execution.
-* **Chrome Tab Hygiene**: If session has Chrome/browser tool access: before end, review open tabs, close duplicate/dead pages, group remainder by topic. Ask before close tab with unsaved input (forms/drafts).
     </section>
 
     <section id="cognitive-framework">
