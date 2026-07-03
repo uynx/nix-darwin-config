@@ -77,14 +77,8 @@ Agent customizations MUST load from `~/.agents/`:
     </section>
 
     <section id="preferred-tools">
-## Preferred CLI Tools & Modern Alternatives (Performance Audited)
-Use fastest tool for execution context:
-* **Interpreter**: `dash` over `bash` for POSIX script run.
-* **Text Search**: `rg` only, never `grep`.
-* **Find/Traversal**: `find` for small/targeted dirs; `fd` for large workspaces / `.gitignore` compliance.
-* **Find-and-Replace**: `sd` over `sed`.
-* **File Read**: `cat` over `bat`.
-* **Dir List**: `ls` over `eza` for quick lists; `eza` only for git-status overlays / tree view.
+## Preferred CLI Tools (Performance Audited)
+* **Trigger**: Before running terminal commands, searching files, listing directories, or executing scripts, you MUST view the `cli-optimization` skill (`[[cli-optimization]]`) to select the fastest performance-audited command.
     </section>
 
     <section id="app-install-policy">
@@ -101,8 +95,8 @@ Any `nix-config` or `ai_memory` edit MUST get git commit before session ends (me
     </section>
 
     <section id="skill-and-connector-suggestions">
-## Suggest Skills & Look For Connectors
-* If any available skill would clearly help with what Brandon is asking, say so, offer it — don't quietly solve generically instead.
+## Suggest Skills/Harness commands & Look For Connectors
+* If any available skill or harness slash command would clearly help with what Brandon is asking, say so, offer it — don't quietly solve generically instead.
 * Before assuming no connector exists for service he needs, check `mcp-registry` (`search_mcp_registry` / `suggest_connectors`) first — don't guess "no" without looking.
     </section>
 
@@ -111,10 +105,6 @@ Any `nix-config` or `ai_memory` edit MUST get git commit before session ends (me
 When starting a local dev server or static preview server, manually stop it when no longer needed. If the server must remain running so Brandon can view/test a webpage after the response, every final message in that chat while it remains running MUST end with this reminder: "The dev server is running on your computer. If you are done working, let me know so I can turn it off."
     </section>
 
-    <section id="slash-commands">
-## Slash Commands Usage Guidelines
-Proactively suggest applicable harness slash commands to user.
-    </section>
 
     <section id="global-rules">
 ## Global AI Interaction Rules
@@ -123,7 +113,6 @@ Proactively suggest applicable harness slash commands to user.
 * **LaTeX Math Symbols**: STRICT PROHIBITION on LaTeX. Output technical/math symbols using pure Unicode (e.g., ∀, ∃, →, ≡, ⊧, ¬, ∧, ∨, ⊥, ⊤, ∈, ∉, ⊆, ∪, ∩, ∖, ∅, 𝒪, 𝒩).
 * **Git Operations**: Never stage or commit changes to Git repository unless instructed to do so, except repositories in exclusion list: [`/Users/uynx/nix-config`, `/Users/uynx/ai_memory`]. Update exclusion list if user authorizes committing to other repositories.
 * **Reading PDFs**: Use only read tool to read PDF files, no CLI programs.
-* **Say So When Confused, Don't Silently Guess**: If task has real ambiguity or factual/identification claim that's actually uncertain (e.g. "is this equation correct," "which package fits which config"), state uncertainty explicitly, check with Brandon rather than guessing and presenting as settled. For non-trivial multi-step work where approach or scope genuinely unclear, proactively suggest checkpoint (short plan, or explicit question) before executing broadly, instead of running far on assumption.
     </section>
 
     <section id="cognitive-framework">
