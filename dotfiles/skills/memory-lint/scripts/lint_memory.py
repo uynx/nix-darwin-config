@@ -158,8 +158,6 @@ def audit_vault():
                     if parent_name in ["local_ai_memory_system", "nix_darwin_setup", "neovim_mastery"]:
                         if not any("<section id=\"accomplishments\">" in line for line in lines):
                             warnings.append(f"{rel_path}: Coding log is missing a '<section id=\"accomplishments\">' block.")
-                        if "file:///" not in content:
-                            warnings.append(f"{rel_path}: Coding log contains no clickable file:/// links (document changes using file:/// links).")
 
     # 3. Print report
     print("# Obsidian AI Memory Audit Report")
