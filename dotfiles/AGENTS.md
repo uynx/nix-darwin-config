@@ -77,6 +77,7 @@ Agent customizations MUST load from `~/.agents/`:
 * **Skills vs. Main Memory Boundary**:
   * **Main Memory (under `/Users/uynx/ai_memory/`)**: Store declarative context, user profiles, hardware/tech setups, active project states, and wealth tracking.
   * **Agent Skills (under `~/nix-config/dotfiles/skills/`)**: Store procedural instructions, execution flows, command-selection diagnostic trees (e.g., CLI tools), standard linting flows, and step-by-step checklists.
+  * **Trade-off & Hygiene**: Moving items to skills prevents "context window bloat" but requires explicit lookup/invocation. Prefer creating skills over adding details to main memory whenever possible to keep the main memory vault clean, focused, and token-efficient.
     </section>
 
     <section id="preferred-tools">
