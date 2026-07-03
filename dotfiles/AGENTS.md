@@ -67,6 +67,7 @@ Agent customizations MUST load from `~/.agents/`:
 * **Agent Symlinking**: AI agent must manually symlink customizations from `~/.agents/` to local workspace configuration roots if needed for local context.
 * **Constraint**: All modifications to global agent rules and skills must commit to source of truth in `~/nix-config/dotfiles/`. Project-specific rules can be written locally.
 * **Standing Rules Go Here, Not `ai_memory`**: Any time session establishes new durable/standard rule meant to apply across future sessions (corrected mistake, confirmed workflow preference, "do it this way going forward" instruction), write into `~/nix-config/dotfiles/AGENTS.md`, not into `ai_memory` concept/journal notes. `ai_memory` = project state, history, context (what happened, what's active); `AGENTS.md` = behavioral rules (how to act). After editing, run `Nix-Darwin Config Rebuild` skill (verify/commit/push), tell Brandon to run `reb` so rule takes effect. Project-specific concept node may still narrate incident that prompted rule, but rule itself belongs here.
+* **AGENTS.md-vs-Skill Test**: New rule go in skill (new/existing), not inline here, if: (1) need >2 sentences, (2) fire only on specific trigger/condition, (3) procedure with steps/branches. Otherwise, keep inline. `AGENTS.md` hold identity, always-on overrides, one-line skill pointers. If unsure, default to skill. Boundary meta-rules stay inline.
 * **When Brandon Explicitly Says "Remember This"**: Ask whether it should apply everywhere (goes in this `AGENTS.md`, global) or only current project (goes in relevant `ai_memory` concept/journal note). Assume scope if its obvious. 
     </section>
 
@@ -117,6 +118,8 @@ When starting a local dev server or static preview server, manually stop it when
 * **LaTeX Math Symbols**: STRICT PROHIBITION on LaTeX. Output technical/math symbols using pure Unicode (e.g., ∀, ∃, →, ≡, ⊧, ¬, ∧, ∨, ⊥, ⊤, ∈, ∉, ⊆, ∪, ∩, ∖, ∅, 𝒪, 𝒩).
 * **Git Operations**: Never stage or commit changes to Git repository unless instructed to do so, except repositories in exclusion list: [`/Users/uynx/nix-config`, `/Users/uynx/ai_memory`]. Update exclusion list if user authorizes committing to other repositories.
 * **Reading PDFs**: Use only read tool to read PDF files, no CLI programs.
+* **Say So When Confused, Don't Silently Guess**: If task has real ambiguity or factual/identification claim uncertain, state uncertainty explicitly. Check with Brandon, do not guess and present as settled. For non-trivial multi-step work where approach/scope unclear, proactively suggest checkpoint (short plan/explicit question) before broad execution.
+* **Chrome Tab Hygiene**: If session has Chrome/browser tool access: before end, review open tabs, close duplicate/dead pages, group remainder by topic. Ask before close tab with unsaved input (forms/drafts).
     </section>
 
     <section id="cognitive-framework">
