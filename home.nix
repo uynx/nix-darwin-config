@@ -35,6 +35,7 @@
     tokei
     hyperfine
     bandwhich
+    duti
 
     (writeShellScriptBin "memory-sync" ''
       set -euo pipefail
