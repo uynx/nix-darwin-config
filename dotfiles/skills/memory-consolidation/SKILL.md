@@ -14,6 +14,8 @@ Follow these rules when writing to, editing, or synchronizing the `/Users/uynx/a
 * **Caveman Tone**: Skill `/caveman` (default level) MUST be active for every memory edit (journal, concepts, `index.md`, `projects.md`). Disable when done.
 * **Terseness**: Write dense, fragment-heavy prose. No articles ("the/a/an") or filler words.
 * **Scope**: These formatting rules also apply to `AGENTS.md` itself when edited.
+* **Clickable file:/// Links**: When documenting modifications to codebase or configuration files in journals or concepts, always use clickable `file:///` links (e.g., `[filename](file:///path/to/file)`). Do not document changes with plain text paths.
+* **Wikilink Scope Limits**: Never use Obsidian wikilinks `[[filename]]` for files located outside the `/Users/uynx/ai_memory/` vault. For external files (such as files in `~/nix-config/` or local configurations), use standard markdown `file:///` links or inline code formatting.
 
 ## 2. Proactive Logging Protocol
 * **Trigger**: Only compile a daily journal node if the session directly relates to an active project. For general Q&As or general advice, DO NOT log or write to `/Users/uynx/ai_memory/`.
