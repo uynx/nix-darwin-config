@@ -81,21 +81,8 @@ Agent customizations MUST load from `~/.agents/`:
 
     <section id="consolidation-protocol">
 ## Memory Consolidation Protocol (Write & Edge Creation)
-1. **Proactive Logging (Conditional Rule)**: ONLY compile daily journal node if session directly relates to active project (confirmed by user or highly obvious from context). For random Q&As or general advice, DO NOT log session or write files to `/Users/uynx/ai_memory/` unless explicitly requested.
-   * Back-link after `</article>`:
-     ```markdown
-     **Prev**: `[[{project_name}_YYYY-MM-DD_of_previous_log]]`
-     **Parent**: `[[{project_name}]]`
-     ```
-   * Update overview node pointer to daily node.
-   * Prune `Recent Journal Logs` in `/Users/uynx/ai_memory/index.md` to top 10 logs.
-   * **Memory Pruning**: Proactively edit or prune daily logs and concepts to remove obsolete info, wrong assumptions, duplicate context, or unhelpful noise that wastes context. Keep documented mistakes, bugs, or wrong approaches only when useful as future lessons or troubleshooting references.
-   * **Worthiness Filter**: Before writing journal line, ask "does this move goal forward or matter next time this comes up?" If not, cut it. Skip: blow-by-blow of small/repetitive steps already superseded by later step, tool-usage/process trivia that isn't durable practice, anything already stated in relevant concept node (link to concept node instead of restating). Journal entry should read as short dated log of decisions/state/open items, not transcript of session. Durable facts (tool landscape, technique that worked, standing preference) belong in concept node, not repeated per journal entry.
-   * **Sync Vault**: Run `memory-sync "<descriptive_commit_msg>"` throughout session. Commit msg in succinct English (e.g. `memory-sync "Journal: Log daily progress for Nix Darwin Setup"`). No generic fallback msgs.
-2. **Cross-Project Linking**: Overlapping tasks → add wikilink at bottom (`**Overlap**: [[link]]`).
-3. **Topic Creation**: New domains → create concept node in `/Users/uynx/ai_memory/concepts/` (HTML wrapper + index in `index.md`).
-4. **Provenance & Safety**: Source URLs for technical/medical notes. Resolve collisions by merging or suffixes. Propose chat debug guides to concept nodes.
-5. **Memory Updates (Every Prompt)**: Proactively evaluate almost every turn/prompt for extractable facts, preference changes, configurations, tool usages, or bio details. Perform these memory updates in background automatically. If new info or topic doesn't fit any existing project or concept node, proactively ask user to initialize new project/concept node to organize it.
+* **Trigger**: When writing, updating, structuring, or syncing the `/Users/uynx/ai_memory/` vault, you MUST activate the `memory-consolidation` skill.
+* **Preference Updates**: Automatically extract and note personal preferences, configurations, or bio details from prompts. If a new preference/fact doesn't fit existing projects, ask the user to initialize a new project/concept.
     </section>
 
     <section id="preferred-tools">
@@ -111,11 +98,7 @@ Use fastest tool for execution context:
 
     <section id="app-install-policy">
 ## App Install Policy
-All app installs go through `~/nix-config`, never manual/App Store/direct download unless truly unavoidable.
-1. Check nixpkgs first for `aarch64-darwin` support (`nix search nixpkgs <name>` or search.nixos.org). If exists and builds -> add to `home.packages` in `~/nix-config/home.nix`.
-2. No `aarch64-darwin` nixpkg -> add via Homebrew in `~/nix-config/darwin.nix` (`homebrew.brews` for CLI, `homebrew.casks` for GUI apps).
-3. AI app that updates often (Claude, ChatGPT, Cursor, Codex, Antigravity, etc.) -> ALWAYS Homebrew in `darwin.nix`, even if nixpkg exists. Nix pins versions; fast-moving AI apps go stale/break under pin.
-4. After any `.nix` config edit, run `Nix-Darwin Config Rebuild` skill. Only Brandon runs `reb`/`sudo`; agents never do.
+* **Trigger**: When requested to install, search, or configure applications/packages on macOS, you MUST activate the `app-install` skill.
     </section>
 
     <section id="git-workflow-config-changes">
