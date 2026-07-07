@@ -8,7 +8,13 @@
 {
   users.users.uynx.home = "/Users/uynx";
 
-  documentation.enable = false;
+  documentation = {
+    enable = false;
+    doc.enable = false;
+    man.enable = false;
+    info.enable = false;
+  };
+  system.tools.darwin-uninstaller.enable = false;
 
   determinateNix = {
     enable = true;
