@@ -8,6 +8,8 @@
 {
   users.users.uynx.home = "/Users/uynx";
 
+  documentation.enable = false;
+
   determinateNix = {
     enable = true;
     determinateNixd = {
