@@ -53,4 +53,4 @@ font-codepoint-map = U+25A0-U+25FF="JuliaMono"
 font-codepoint-map = U+2800-U+28FF="JuliaMono"
 
 # Map Shift+Enter to send newline
-keybind = shift+enter=text:\n
+keybind = shift+enter=text:\x0a
