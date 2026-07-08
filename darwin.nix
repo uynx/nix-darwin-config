@@ -261,6 +261,7 @@
       "cursor"
       "grok-build"
       "libreoffice"
+      "microsoft-teams"
       "mullvad-browser"
       "protonvpn"
       "streamlabs"
