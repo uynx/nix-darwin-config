@@ -51,3 +51,6 @@ font-codepoint-map = U+2B00-U+2BFF="JuliaMono"
 font-codepoint-map = U+2300-U+23FF="JuliaMono"
 font-codepoint-map = U+25A0-U+25FF="JuliaMono"
 font-codepoint-map = U+2800-U+28FF="JuliaMono"
+
+# Map Shift+Enter to send newline
+keybind = shift+enter=text:\n
