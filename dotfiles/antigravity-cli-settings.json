@@ -3,6 +3,7 @@
   "altScreenMode": "always",
   "artifactReviewPolicy": "agent-decides",
   "enableTelemetry": false,
+  "auto_update": false,
   "model": "Gemini 3.5 Flash (High)",
   "permissions": {
     "allow": [
