@@ -278,8 +278,8 @@
   ];
 
   networking = {
-    applicationFirewall.enable = true;
-    applicationFirewall.enableStealthMode = true;
+    applicationFirewall.enable = false;
+    applicationFirewall.enableStealthMode = false;
     computerName = "MacBook-Pro";
     hostName = "MacBook-Pro";
     # wakeOnLan.enable = true;
