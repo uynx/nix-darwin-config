@@ -85,12 +85,12 @@
           "UserHasDeclinedEnable" = true;
         };
         "com.apple.SubmitDiagnostics" = {
-          iCloudAnalytics = true;
+          iCloudAnalytics = false;
         };
         "com.apple.AdLib" = {
-          allowApplePersonalizedAdvertising = true;
-          allowIdentifierForAdvertising = true;
-          AD_ID_OPT_OUT = false;
+          allowApplePersonalizedAdvertising = false;
+          allowIdentifierForAdvertising = false;
+          AD_ID_OPT_OUT = true;
         };
         "com.apple.Safari" = {
           UniversalSearchEnabled = false;
@@ -104,8 +104,8 @@
           AutoOpenSafeDownloads = false;
         };
         "com.apple.spotlight" = {
-          SuggestionsEnabled = true;
-          LookupEnabled = true;
+          SuggestionsEnabled = false;
+          LookupEnabled = false;
         };
         "com.apple.LaunchServices" = {
           LSQuarantine = false;
