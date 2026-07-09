@@ -147,8 +147,8 @@
       };
 
       loginwindow = {
-        GuestEnabled = true;
-        DisableConsoleAccess = false;
+        GuestEnabled = false;
+        DisableConsoleAccess = true;
       };
 
       smb = {
@@ -278,7 +278,7 @@
   ];
 
   networking = {
-    applicationFirewall.enable = false;
+    applicationFirewall.enable = true;
     applicationFirewall.enableStealthMode = false;
     computerName = "MacBook-Pro";
     hostName = "MacBook-Pro";
