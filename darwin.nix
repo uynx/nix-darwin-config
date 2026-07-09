@@ -75,15 +75,15 @@
         "com.apple.universalaccess" = {
           reduceMotion = true;
         };
-        "com.apple.assistant.support" = {
-          "Assistant Enabled" = false;
-          "Dictation Enabled" = false;
-        };
-        "com.apple.Siri" = {
-          "Siri Data Sharing Opt-Out" = true;
-          "StatusMenuVisible" = false;
-          "UserHasDeclinedEnable" = true;
-        };
+        # "com.apple.assistant.support" = {
+        #   "Assistant Enabled" = false;
+        #   "Dictation Enabled" = false;
+        # };
+        # "com.apple.Siri" = {
+        #   "Siri Data Sharing Opt-Out" = true;
+        #   "StatusMenuVisible" = false;
+        #   "UserHasDeclinedEnable" = true;
+        # };
         "com.apple.SubmitDiagnostics" = {
           iCloudAnalytics = false;
         };
@@ -107,13 +107,13 @@
           SuggestionsEnabled = false;
           LookupEnabled = false;
         };
-        "com.apple.LaunchServices" = {
-          LSQuarantine = false;
-        };
-        "com.apple.desktopservices" = {
-          DSDontWriteNetworkStores = true;
-          DSDontWriteUSBStores = true;
-        };
+        # "com.apple.LaunchServices" = {
+        #   LSQuarantine = false;
+        # };
+        # "com.apple.desktopservices" = {
+        #   DSDontWriteNetworkStores = true;
+        #   DSDontWriteUSBStores = true;
+        # };
         "com.apple.TimeMachine" = {
           DoNotOfferNewDisksForBackup = true;
         };
@@ -130,11 +130,11 @@
           WarnOnEmptyTrash = false;
           DisableAllAnimations = true;
         };
-        "com.apple.frameworks.diskimages" = {
-          skip-verify = true;
-          skip-verify-locked = true;
-          skip-verify-remote = true;
-        };
+        # "com.apple.frameworks.diskimages" = {
+        #   skip-verify = true;
+        #   skip-verify-locked = true;
+        #   skip-verify-remote = true;
+        # };
         "com.apple.QuickTimePlayerX" = {
           NSRecentDocumentsLimit = 0;
           NSQuitAlwaysKeepsWindows = false;
@@ -146,10 +146,10 @@
         askForPasswordDelay = 0;
       };
 
-      loginwindow = {
-        GuestEnabled = false;
-        DisableConsoleAccess = true;
-      };
+      # loginwindow = {
+      #   GuestEnabled = false;
+      #   DisableConsoleAccess = true;
+      # };
 
       smb = {
         NetBIOSName = "Mac";
