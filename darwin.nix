@@ -277,6 +277,13 @@
     sketchybar-app-font
   ];
 
+  # NOTE: If AirDrop is broken/disabled while firewall is active, run these commands manually:
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
   networking = {
     applicationFirewall.enable = true;
     applicationFirewall.enableStealthMode = true;
@@ -310,16 +317,6 @@
       RunAtLoad = false;
     };
   };
-
-  system.activationScripts.firewall.text = ''
-    echo "Configuring firewall exceptions for AirDrop..."
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
-  '';
 
   programs.fish.enable = true;
   programs.bash.enable = true;
