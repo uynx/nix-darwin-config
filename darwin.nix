@@ -108,11 +108,11 @@
           LookupEnabled = true;
         };
         "com.apple.LaunchServices" = {
-          LSQuarantine = true;
+          LSQuarantine = false;
         };
         "com.apple.desktopservices" = {
-          DSDontWriteNetworkStores = false;
-          DSDontWriteUSBStores = false;
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
         };
         "com.apple.TimeMachine" = {
           DoNotOfferNewDisksForBackup = true;
@@ -131,9 +131,9 @@
           DisableAllAnimations = true;
         };
         "com.apple.frameworks.diskimages" = {
-          skip-verify = false;
-          skip-verify-locked = false;
-          skip-verify-remote = false;
+          skip-verify = true;
+          skip-verify-locked = true;
+          skip-verify-remote = true;
         };
         "com.apple.QuickTimePlayerX" = {
           NSRecentDocumentsLimit = 0;
