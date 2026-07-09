@@ -76,13 +76,13 @@
           reduceMotion = true;
         };
         "com.apple.assistant.support" = {
-          "Assistant Enabled" = true;
-          "Dictation Enabled" = true;
+          "Assistant Enabled" = false;
+          "Dictation Enabled" = false;
         };
         "com.apple.Siri" = {
-          "Siri Data Sharing Opt-Out" = false;
-          "StatusMenuVisible" = true;
-          "UserHasDeclinedEnable" = false;
+          "Siri Data Sharing Opt-Out" = true;
+          "StatusMenuVisible" = false;
+          "UserHasDeclinedEnable" = true;
         };
         "com.apple.SubmitDiagnostics" = {
           iCloudAnalytics = true;
