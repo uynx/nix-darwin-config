@@ -17,17 +17,20 @@ Use this skill when nix-darwin or home-manager configuration files under `/Users
    ```bash
    nix flake check --no-build /Users/uynx/nix-config
    ```
-2. **Auto-Commit and Push**: If the syntax check passes, stage the changes, generate a concise, human-sounding commit message based on the modified files (using caveman lite level to write it, mimicking past commits such as "Updates.", "Cleanup", "Add AI memory tracking", or "Configure <feature>"), commit, and push directly to GitHub:
+2. **Local Commit**: If the syntax check passes, stage the changes and create a local commit on your working branch (do not push immediately if the task is ongoing):
    ```bash
    git add .
-   git commit -m "<human_message>"
-   git push
+   git commit -m "<concise_message>"
    ```
-3. **Instruct Rebuild**: Clearly output the changes made, confirm that they have been committed and pushed to GitHub, and instruct the user to run the rebuild alias in their interactive terminal:
+3. **Verify, Squash, and Push**: Once the task is fully complete and verified:
+   * Rebase on top of the latest main changes: `git pull --rebase origin main`
+   * Squash history: If multiple temporary commits exist, run an interactive rebase (`git rebase -i`) to combine them into a single clean commit with a descriptive message.
+   * Push the cleaned commit to the remote branch and open/update the Pull Request to `main`.
+4. **Instruct Rebuild**: Tell the user to run the rebuild alias to apply:
    ```bash
    reb
    ```
-4. **Troubleshoot Failures**: If the user reports that `reb` failed:
+5. **Troubleshoot Failures**: If the user reports that `reb` failed:
    - Parse the compiler output or error logs.
    - Propose and implement a fix.
    - Run `nix flake check` again, auto-commit/push the fix, and prompt the user to run `reb` again.
