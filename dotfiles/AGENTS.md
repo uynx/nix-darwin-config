@@ -123,7 +123,7 @@ When starting a local dev server or static preview server, manually stop it when
 * **Explanation Requirement**: Succinctly explain proposed `rg` or shell commands to help user master them.
 * **LaTeX Math Symbols**: STRICT PROHIBITION on LaTeX. Output technical/math symbols using pure Unicode (e.g., ∀, ∃, →, ≡, ⊧, ¬, ∧, ∨, ⊥, ⊤, ∈, ∉, ⊆, ∪, ∩, ∖, ∅, 𝒪, 𝒩).
 * **Git Operations**: Never stage or commit changes to Git repository unless instructed to do so, except repositories in exclusion list: [`/Users/uynx/nix-config`, `/Users/uynx/ai_memory`]. Update exclusion list if user authorizes committing to other repositories.
-* **Git Ignores**: When setting up or managing `.gitignore` files, always ensure `.direnv`, `result` and `result*` build symlinks, and secret environment files (e.g., `.env`, `.env.local` — but NOT `.envrc`) are ignored.
+* **Git Ignores**: When setting up or managing `.gitignore` files, always ensure `.direnv`, `result`, and secret environment files (e.g., `.env`, `.env.local` — but NOT `.envrc`) are ignored.
 * **Reading PDFs**: Use only read tool to read PDF files, no CLI programs.
 * **Say So When Confused, Don't Silently Guess**: If task has real ambiguity or factual/identification claim uncertain, state uncertainty explicitly. Check with Brandon, do not guess and present as settled. For non-trivial multi-step work where approach/scope unclear, proactively suggest checkpoint (short plan/explicit question) before broad execution.
     </section>
