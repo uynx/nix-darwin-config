@@ -171,7 +171,6 @@ in
         AppleShowAllExtensions = true;
         AppleShowAllFiles = false;
         AppleKeyboardUIMode = 3;
-        AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
         _HIHideMenuBar = false;
 
@@ -306,7 +305,7 @@ in
 
   networking = {
     applicationFirewall.enable = true;
-    # Stealth mode blocks the discovery probes AirDrop needs — exceptions below keep AirDrop working (fixed 2026-07-09)
+    # Stealth mode blocks the discovery probes AirDrop needs — see manual rapportd exception note below
     applicationFirewall.enableStealthMode = true;
     computerName = "MacBook-Air";
     hostName = "MacBook-Air";
@@ -318,15 +317,9 @@ in
   };
 
   services.sketchybar.enable = false;
-  system.activationScripts.firewall.text = ''
-    echo "Configuring firewall exceptions for AirDrop..."
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord
-    /usr/libexec/ApplicationFirewall/socketfilterfw --add /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
-    /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder
-  '';
+  # AirDrop needs rapportd unblocked despite stealth mode — run manually after rebuild:
+  #   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
+  #   sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
 
   programs.fish.enable = true;
   programs.bash.enable = true;
