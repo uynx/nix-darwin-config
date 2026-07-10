@@ -261,10 +261,7 @@ in
       upgrade = true;
       cleanup = "zap";
     };
-    brews = [
-      "openclaw-cli"
-      "hermes-agent"
-    ];
+    brews = [ ];
     casks = [
       "antigravity"
       "antigravity-cli"
@@ -273,8 +270,6 @@ in
       "cursor"
       "cursor-cli"
       "grok-build"
-      "libreoffice"
-      "microsoft-teams"
       "mullvad-browser"
       "protonvpn"
       "streamlabs"
