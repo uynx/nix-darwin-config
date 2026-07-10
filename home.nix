@@ -16,6 +16,7 @@
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      AGY_CLI_DISABLE_AUTO_UPDATE = "true";
     };
   };
 
