@@ -243,13 +243,13 @@ in
             if test (count $argv) -gt 0
                 set target $argv[1]
             end
-            sudo darwin-rebuild switch --flake ~/nix-config#$target
+            sudo darwin-rebuild switch --flake ~/nix-darwin-config#$target
           '';
         };
       };
 
       shellAliases = {
-        update = "nix flake update --flake ~/nix-config";
+        update = "nix flake update --flake ~/nix-darwin-config";
         unb = "xattr -d com.apple.quarantine";
 
         word = "open -a LibreOffice --args --writer";
