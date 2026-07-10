@@ -277,7 +277,6 @@ in
       "cursor-cli"
       "grok-build"
       "openclaw"
-      "tailscale-app"
       "teamviewer"
     ];
     masApps = {
