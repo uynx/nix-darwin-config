@@ -97,8 +97,8 @@ The environment has modern command-line utilities installed. When executing or p
     <section id="git-workflow-config-changes">
 ## Git Workflow for Config & Memory Changes
 Any `nix-config` or `ai_memory` edit MUST get git commit before session ends (messages in normal English). Do not push configuration edits immediately if work is ongoing.
-* `.nix` Config Edits: Commit locally using `Nix-Darwin Config Rebuild` skill. When tasks are complete and verified, pull/rebase on `main` (`git pull --rebase origin main`), squash history to keep it clean (`git rebase -i`), push, and open/update the Pull Request.
-* Wording & Rule Edits (e.g., `AGENTS.md`): Stage and commit locally. Push once verified and keep commit history clean. Do NOT ask Brandon to run `reb` for these.
+* `.nix` Config Edits: Commit locally using `Nix-Darwin Config Rebuild` skill. When tasks are complete and verified, pull/rebase on `main` (`git pull --rebase origin main`), squash history programmatically to keep it clean (using soft-reset `git reset --soft origin/main` or `GIT_SEQUENCE_EDITOR`), push, and open/update the Pull Request.
+* Wording & Rule Edits (e.g., `AGENTS.md`): Stage and commit locally. Push once verified and keep commit history clean (using programmatic squash/rebase). Do NOT ask Brandon to run `reb` for these.
 * Memory Edits: At the end of a conversation, you MUST run the `Memory Graph Auditor` skill (`[[memory-lint]]`) to audit the vault for formatting and broken links. Resolve all reported errors, then synchronize via `memory-sync "<normal msg>"`.
     </section>
 

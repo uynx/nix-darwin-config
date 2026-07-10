@@ -24,7 +24,12 @@ Use this skill when nix-darwin or home-manager configuration files under `/Users
    ```
 3. **Verify, Squash, and Push**: Once the task is fully complete and verified:
    * Rebase on top of the latest main changes: `git pull --rebase origin main`
-   * Squash history: If multiple temporary commits exist, run an interactive rebase (`git rebase -i`) to combine them into a single clean commit with a descriptive message.
+   * Squash history programmatically (since the agent runs in a non-interactive shell):
+     * *Method A (Soft Reset - preferred):* Run `git reset --soft origin/main` (or the last upstream commit hash) to uncommit all local changes while keeping them staged, then run `git commit -m "clean descriptive message"`.
+     * *Method B (Programmatic Rebase):* Run:
+       ```bash
+       GIT_SEQUENCE_EDITOR="sed -i '2,\$s/^pick/squash/'" git rebase -i origin/main
+       ```
    * Push the cleaned commit to the remote branch and open/update the Pull Request to `main`.
 4. **Instruct Rebuild**: Tell the user to run the rebuild alias to apply:
    ```bash
