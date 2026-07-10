@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  gitKey = "~/.ssh/id_ed25519.pub"; # <-- SSH public key used for git auth and commit signing (git key)
+in
 {
   imports = [ ];
 
@@ -38,44 +41,7 @@
     bandwhich
     duti
 
-    (writeShellScriptBin "memory-sync" ''
-      set -euo pipefail
-      VAULT_DIR="$HOME/ai_memory"
 
-      if [ ! -d "$VAULT_DIR" ]; then
-        echo "Error: AI memory directory $VAULT_DIR does not exist." >&2
-        exit 1
-      fi
-
-      cd "$VAULT_DIR"
-      if [ ! -d .git ]; then
-        echo "Error: AI memory directory $VAULT_DIR is not a Git repository." >&2
-        exit 1
-      fi
-
-      if [ $# -lt 1 ] || [ -z "$1" ]; then
-        echo "Error: You must provide a commit message." >&2
-        echo "Usage: memory-sync \"Your descriptive commit message\"" >&2
-        exit 1
-      fi
-
-      git add .
-
-      if git diff --cached --quiet; then
-        echo "No changes to sync."
-      else
-        echo "Committing with message: $1"
-        git commit -m "$1"
-      fi
-
-      if git remote | grep -q '^origin$'; then
-        echo "Pushing changes to remote..."
-        git push origin main
-      else
-        echo "Note: No git remote 'origin' configured. Set one with:"
-        echo "  cd $VAULT_DIR && git remote add origin <your-private-repo-url>"
-      fi
-    '')
 
     (neovim.override {
       withPerl = true;
@@ -140,32 +106,27 @@
 
   home.file = {
     ".config/nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/nvim";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim";
     ".local/share/nvim/site/parser/norg.so".source =
       "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
     ".config/ghostty/config".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/ghostty_config";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/ghostty_config";
 
     ".aerospace.toml".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/aerospace.toml";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/aerospace.toml";
 
     ".config/sketchybar".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/sketchybar";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/sketchybar";
 
     ".config/tmux".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/tmux";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/tmux";
 
     ".agents/skills".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/skills";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/skills";
 
     ".agents/AGENTS.md".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/AGENTS.md";
-
-    ".gemini/antigravity-cli/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/antigravity-cli-settings.json";
-      force = true;
-    };
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/AGENTS.md";
   };
 
   services.colima = {
@@ -391,7 +352,7 @@
         user = {
           name = "Brandon Alexander";
           email = "brandonwalex@pm.me";
-          signingkey = "~/.ssh/id_ed25519.pub";
+          signingkey = gitKey;
         };
         init.defaultBranch = "main";
         pull.rebase = true;
