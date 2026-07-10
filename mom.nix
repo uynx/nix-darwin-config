@@ -306,7 +306,7 @@ in
 
   networking = {
     applicationFirewall.enable = true;
-    applicationFirewall.enableStealthMode = false;
+    applicationFirewall.enableStealthMode = true;
     computerName = "MacBook-Air";
     hostName = "MacBook-Air";
   };
