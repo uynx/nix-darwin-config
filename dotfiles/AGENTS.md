@@ -63,9 +63,12 @@ Vault root: `/Users/uynx/ai_memory/`
     <section id="agent-customizations">
 ## Customization Source (Strict ~/.agents)
 Agent customizations MUST load from `~/.agents/`:
-* **Source of Truth**: All rule edits (`AGENTS.md`) and new/modified skills MUST be written in `~/nix-config/dotfiles/`. They are automatically symlinked to `~/.agents/` upon rebuild (`reb`).
+* **Source of Truth**: All rule edits (`AGENTS.md`) and new/modified skills MUST be written in `~/nix-config/dotfiles/`. Auto-symlinked to `~/.agents/` upon rebuild (`reb`).
 * **Agent Symlinking**: AI agent must manually symlink customizations from `~/.agents/` to local workspace configuration roots if needed for local context.
-* **Constraint**: NEVER write directly to local `.agents/` or local `AGENTS.md`. All modifications must commit to the source of truth in `~/nix-config/dotfiles/`.
+* **Constraint**: All modifications to global agent rules and skills must commit to source of truth in `~/nix-config/dotfiles/`. Project-specific rules can be written locally.
+* **Standing Rules Go Here, Not `ai_memory`**: Any time session establishes new durable/standard rule meant to apply across future sessions (corrected mistake, confirmed workflow preference, "do it this way going forward" instruction), write into `~/nix-config/dotfiles/AGENTS.md`, not into `ai_memory` concept/journal notes. `ai_memory` = project state, history, context (what happened, what's active); `AGENTS.md` = behavioral rules (how to act). After editing, run `Nix-Darwin Config Rebuild` skill (verify/commit/push), tell Brandon to run `reb` so rule takes effect. Project-specific concept node may still narrate incident that prompted rule, but rule itself belongs here.
+* **AGENTS.md-vs-Skill Test**: New rule go in skill (new/existing), not inline here, if: (1) need >2 sentences, (2) fire only on specific trigger/condition, (3) procedure with steps/branches. Otherwise, keep inline. `AGENTS.md` hold identity, always-on overrides, one-line skill pointers. If unsure, default to skill. Boundary meta-rules stay inline.
+* **When Brandon Explicitly Says "Remember This"**: Ask whether it should apply everywhere (goes in this `AGENTS.md`, global) or only current project (goes in relevant `ai_memory` concept/journal note). Assume scope if its obvious. 
     </section>
 
     <section id="consolidation-protocol">
@@ -124,16 +127,6 @@ When starting a local dev server or static preview server, manually stop it when
 * **Git Ignores**: When setting up or managing `.gitignore` files, always ensure `.direnv`, `result`, and secret environment files (e.g., `.env`, `.env.local` — but NOT `.envrc`) are ignored.
 * **Reading PDFs**: Use only read tool to read PDF files, no CLI programs.
 * **Say So When Confused, Don't Silently Guess**: If task has real ambiguity or factual/identification claim uncertain, state uncertainty explicitly. Check with Brandon, do not guess and present as settled. For non-trivial multi-step work where approach/scope unclear, proactively suggest checkpoint (short plan/explicit question) before broad execution.
-    </section>
-
-    <section id="git-setup">
-## Git Setup for Beginners (Caveman Guide)
-Git is time-machine for code. Save snapshots (commits) to track work.
-Set up first time:
-1. **Name**: `git config --global user.name "Your Name"`
-2. **Email**: `git config --global user.email "your.email@example.com"`
-3. **No GitHub account?**: Local git works without GitHub. Just run local commands.
-4. **If using GitHub**: Make account, set up SSH key: `ssh-keygen -t ed25519 -C "your.email@example.com"`, add public key to GitHub settings.
     </section>
 
     <section id="git-setup">
