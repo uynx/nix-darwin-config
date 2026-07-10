@@ -6,21 +6,13 @@
 }:
 
 let
-  username = "uynx"; # <-- CHANGE THIS to your macOS username
+  username = "amyalexander"; # <-- CHANGE THIS to your macOS username
 in
 {
   users.users.${username} = {
     home = "/Users/${username}";
     shell = pkgs.fish;
   };
-
-  documentation = {
-    enable = false;
-    doc.enable = false;
-    man.enable = false;
-    info.enable = false;
-  };
-  system.tools.darwin-uninstaller.enable = false;
 
   determinateNix = {
     enable = true;
@@ -61,10 +53,19 @@ in
     };
   };
 
+  documentation = {
+    enable = false;
+    doc.enable = false;
+    man.enable = false;
+    info.enable = false;
+  };
+
   system = {
     primaryUser = username;
 
     configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+
+    tools.darwin-uninstaller.enable = false;
 
     stateVersion = 6;
 
@@ -196,7 +197,7 @@ in
 
       WindowManager = {
         EnableStandardClickToShowDesktop = false;
-        StandardHideDesktopIcons = true;
+        StandardHideDesktopIcons = false;
       };
 
       dock = {
@@ -227,7 +228,7 @@ in
         FXEnableExtensionChangeWarning = false;
         FXPreferredViewStyle = "Nlsv";
         QuitMenuItem = true;
-        CreateDesktop = false;
+        CreateDesktop = true;
       };
 
       trackpad = {
@@ -264,22 +265,38 @@ in
     brews = [
       "openclaw-cli"
       "hermes-agent"
+      "pipx"
     ];
     casks = [
       "antigravity"
       "antigravity-cli"
       "claude-code"
+      "claude"
       "codex"
+      "chatgpt"
       "cursor"
       "cursor-cli"
       "grok-build"
-      "mullvad-browser"
-      "protonvpn"
-      "streamlabs"
+      "openclaw"
+      "tailscale-app"
+      "teamviewer"
     ];
     masApps = {
-      "cakewallet" = 1334702542;
     };
+  };
+
+  launchd.user.agents.homebrew-daily-upgrade.serviceConfig = {
+    ProgramArguments = [
+      "/bin/zsh"
+      "-lc"
+      "/opt/homebrew/bin/brew update && /opt/homebrew/bin/brew upgrade"
+    ];
+    StartCalendarInterval = {
+      Hour = 10;
+      Minute = 30;
+    };
+    StandardOutPath = "/tmp/homebrew-daily-upgrade.log";
+    StandardErrorPath = "/tmp/homebrew-daily-upgrade.err";
   };
 
   fonts.packages = with pkgs; [
@@ -287,15 +304,11 @@ in
     julia-mono
   ];
 
-  # NOTE: If AirDrop is broken/disabled while firewall is active, run these commands manually:
-  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
-  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
   networking = {
     applicationFirewall.enable = true;
-    applicationFirewall.enableStealthMode = true;
-    computerName = "MacBook-Pro";
-    hostName = "MacBook-Pro";
-    # wakeOnLan.enable = true;
+    applicationFirewall.enableStealthMode = false;
+    computerName = "MacBook-Air";
+    hostName = "MacBook-Air";
   };
 
   power = {
