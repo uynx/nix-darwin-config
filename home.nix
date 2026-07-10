@@ -280,7 +280,7 @@
       functions = {
         reb = {
           body = ''
-            set -l target "simplified"
+            set -l target "uynx"
             if test (count $argv) -gt 0
                 set target $argv[1]
             end
