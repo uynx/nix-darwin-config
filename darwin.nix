@@ -301,6 +301,9 @@
     enable = true;
     extraPackages = [
       pkgs.aerospace
+      pkgs.jq
+      pkgs.python3
+      pkgs.sqlite
     ];
   };
 
