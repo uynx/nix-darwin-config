@@ -79,8 +79,14 @@ Agent customizations MUST load from `~/.agents/`:
     </section>
 
     <section id="preferred-tools">
-## Preferred CLI Tools (Performance Audited)
-* **Trigger**: Before running terminal commands, searching files, listing directories, or executing scripts, you MUST view the `cli-optimization` skill (`[[cli-optimization]]`) to select the fastest performance-audited command.
+## Preferred CLI Tools & Modern Alternatives
+The environment has modern command-line utilities installed. When executing or proposing terminal commands, you must use these modern tools instead of their legacy counterparts:
+* **Interpreter Selection**: Use `dash` instead of `bash` for executing POSIX-compliant commands or scripts.
+* **Text Search**: Use `rg` instead of `grep`.
+* **File Find**: Use `fd` instead of `find` (use standard `find` only for simple or small directories).
+* **Find and Replace**: Use `sd` instead of `sed`.
+* **File Read**: Use `cat` over `bat` for fast stdout dumps.
+* **Directory Listing**: Use standard `ls` for simple lists. Use `eza` only when you specifically need git-status overlays or tree visualization.
     </section>
 
     <section id="app-install-policy">
