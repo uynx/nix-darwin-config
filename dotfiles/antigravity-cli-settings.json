@@ -28,7 +28,7 @@
       "command(launchctl unload ~/Library/LaunchAgents/org.nixos.sketchybar.plist)",
       "command(launchctl load)",
       "command(darwin-rebuild)",
-      "command(sudo darwin-rebuild switch --flake ~/nix-config#macos)",
+      "command(sudo darwin-rebuild switch --flake ~/nix-config#uynx)",
       "command(killall SystemUIServer Finder Dock)",
       "command(id)",
       "command(osascript)",

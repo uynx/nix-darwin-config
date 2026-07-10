@@ -237,7 +237,7 @@ in
 
       shellAliases = {
         update = "nix flake update --flake ~/nix-config";
-        reb = "sudo darwin-rebuild switch --flake ~/nix-config#macos";
+        reb = "sudo darwin-rebuild switch --flake ~/nix-config#mom";
         unb = "xattr -d com.apple.quarantine";
 
         word = "open -a LibreOffice --args --writer";
