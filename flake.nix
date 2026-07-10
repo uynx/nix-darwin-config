@@ -39,15 +39,39 @@
       ...
     }:
     {
-      darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./darwin.nix
-          determinate.darwinModules.default
-          home-manager.darwinModules.home-manager
-          mac-app-util.darwinModules.default
-        ];
+      darwinConfigurations = {
+        "uynx" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./darwin.nix
+            determinate.darwinModules.default
+            home-manager.darwinModules.home-manager
+            mac-app-util.darwinModules.default
+          ];
+        };
+
+        "simplified" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./simplified.nix
+            determinate.darwinModules.default
+            home-manager.darwinModules.home-manager
+            mac-app-util.darwinModules.default
+          ];
+        };
+
+        "mom" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./mom.nix
+            determinate.darwinModules.default
+            home-manager.darwinModules.home-manager
+            mac-app-util.darwinModules.default
+          ];
+        };
       };
     };
 }

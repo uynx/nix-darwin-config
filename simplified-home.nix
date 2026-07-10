@@ -6,17 +6,22 @@
   ...
 }:
 
+let
+  username = "uynx"; # <-- CHANGE THIS to your macOS username
+  gitName = "Brandon Alexander"; # <-- CHANGE THIS to your Git name
+  gitEmail = "brandonwalex@pm.me"; # <-- CHANGE THIS to your Git email
+  gitSigningKey = "~/.ssh/id_ed25519.pub"; # <-- CHANGE THIS to your SSH signing key (or set commit.gpgsign to false below if not signing)
+in
 {
   imports = [ ];
 
   home = {
-    username = "uynx";
-    homeDirectory = "/Users/uynx";
+    username = username;
+    homeDirectory = "/Users/${username}";
     stateVersion = "26.05";
     sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-      AGY_CLI_DISABLE_AUTO_UPDATE = "true";
+      EDITOR = "micro";
+      VISUAL = "micro";
     };
   };
 
@@ -33,10 +38,7 @@
     gping
     doggo
     obsidian
-    tokei
-    hyperfine
-    bandwhich
-    duti
+    micro
 
     (writeShellScriptBin "memory-sync" ''
       set -euo pipefail
@@ -86,50 +88,22 @@
 
     tree-sitter
     nodejs
-    rustc
     (python3.withPackages (
       ps: with ps; [
         pip
         setuptools
       ]
     ))
-    clang
-    ast-grep
-    lua5_1
-    luarocks
-    julia-bin
-    php
-    php.packages.composer
-    ruby
     uv
-
-    imagemagick
-    ghostscript
-    mermaid-cli
+    ast-grep
 
     nil
     nixfmt
     statix
 
-    (pkgs-stable.texlive.combine {
-      inherit (pkgs-stable.texlive)
-        scheme-full
-        biber
-        ;
-    })
-
-    melonds
     proton-pass
     qbittorrent
-    wireshark
-
-    lima
-    devpod
-    dive
     whatsapp-for-mac
-
-    swi-prolog
-    sketchybar
 
     tmux
     tmuxPlugins.sensible
@@ -147,12 +121,6 @@
     ".config/ghostty/config".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/ghostty_config";
 
-    ".aerospace.toml".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/aerospace.toml";
-
-    ".config/sketchybar".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/sketchybar";
-
     ".config/tmux".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/tmux";
 
@@ -168,11 +136,7 @@
     };
   };
 
-  services.colima = {
-    enable = true;
-    bashPackage = pkgs.bash;
-    dockerPackage = pkgs.docker;
-  };
+
 
   programs = {
     gh = {
@@ -194,14 +158,7 @@
     java.enable = true;
     cargo.enable = true;
 
-    aerospace = {
-      enable = true;
-      package = pkgs.aerospace;
-      launchd = {
-        enable = true;
-        keepAlive = true;
-      };
-    };
+
 
     vscodium = {
       enable = true;
@@ -273,14 +230,15 @@
 
       interactiveShellInit = ''
         fish_add_path /opt/homebrew/bin
-        set -g fish_greeting ""
-        fish_vi_key_bindings
+        set -g fish_greeting "Welcome! To update system packages, run:
+  1. 'update' (fetches latest packages)
+  2. 'reb'    (applies configurations and rebuilds system)"
       '';
 
       functions = {
         reb = {
           body = ''
-            set -l target "uynx"
+            set -l target "simplified"
             if test (count $argv) -gt 0
                 set target $argv[1]
             end
@@ -302,8 +260,6 @@
         wta = "git worktree add";
         wtr = "git worktree remove";
 
-        vi = "nvim";
-        vim = "nvim";
         tree = "eza --tree --icons";
         ll = "eza -la --icons --group-directories-first --header --git-ignore";
       };
@@ -389,21 +345,21 @@
       enable = true;
       settings = {
         user = {
-          name = "Brandon Alexander";
-          email = "brandonwalex@pm.me";
-          signingkey = "~/.ssh/id_ed25519.pub";
+          name = gitName;
+          email = gitEmail;
+          signingkey = gitSigningKey;
         };
         init.defaultBranch = "main";
         pull.rebase = true;
         push.autoSetupRemote = true;
         core = {
-          editor = "nvim";
+          editor = "micro";
           fsmonitor = true;
           untrackedCache = true;
         };
         gpg.format = "ssh";
-        commit.gpgsign = true;
-        tag.gpgsign = true;
+        commit.gpgsign = false;
+        tag.gpgsign = false;
         merge.conflictstyle = "zdiff3";
         rerere.enabled = true;
       };
@@ -426,15 +382,5 @@
   home.activation.createAiBrainDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/ai_memory/concepts"
     mkdir -p "$HOME/ai_memory/journal"
-  '';
-
-  home.activation.setFileAssociations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ -x "${pkgs.duti}/bin/duti" ]; then
-      "${pkgs.duti}/bin/duti" -s com.vscodium public.plain-text all
-      "${pkgs.duti}/bin/duti" -s com.vscodium net.daringfireball.markdown all
-      for ext in txt md markdown nix json yaml yml toml sh py cpp h; do
-        "${pkgs.duti}/bin/duti" -s com.vscodium "$ext" all 2>/dev/null || true
-      done
-    fi
   '';
 }

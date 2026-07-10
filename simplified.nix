@@ -5,8 +5,14 @@
   ...
 }:
 
+let
+  username = "uynx"; # <-- CHANGE THIS to your macOS username
+in
 {
-  users.users.uynx.home = "/Users/uynx";
+  users.users.${username} = {
+    home = "/Users/${username}";
+    shell = pkgs.fish;
+  };
 
   documentation = {
     enable = false;
@@ -25,7 +31,7 @@
       auto-optimise-store = true;
       trusted-users = [
         "root"
-        "uynx"
+        username
       ];
       extra-substituters = [
         "https://nix-community.cachix.org"
@@ -41,7 +47,7 @@
   home-manager = {
     useGlobalPkgs = true;
     backupFileExtension = "bak";
-    users.uynx = import ./home.nix;
+    users.${username} = import ./simplified-home.nix;
     sharedModules = [
       inputs.mac-app-util.homeManagerModules.default
       inputs.nix-index-database.homeModules.nix-index
@@ -56,7 +62,7 @@
   };
 
   system = {
-    primaryUser = "uynx";
+    primaryUser = username;
 
     configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
@@ -166,7 +172,7 @@
         AppleKeyboardUIMode = 3;
         AppleInterfaceStyle = "Dark";
         AppleICUForce24HourTime = false;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
 
         NSAutomaticWindowAnimationsEnabled = false;
 
@@ -194,16 +200,16 @@
       };
 
       dock = {
-        autohide = true;
+        autohide = false;
         autohide-delay = 0.0;
         autohide-time-modifier = 0.0;
         show-recents = false;
         launchanim = false;
         mouse-over-hilite-stack = true;
-        orientation = "right";
+        orientation = "bottom";
         tilesize = 48;
         showhidden = true;
-        static-only = true;
+        static-only = false;
         mineffect = "scale";
         minimize-to-application = true;
         show-process-indicators = true;
@@ -230,7 +236,7 @@
       };
 
       screencapture = {
-        location = "${config.users.users.uynx.home}/Pictures";
+        location = "${config.users.users.${username}.home}/Pictures";
         type = "png";
       };
     };
@@ -255,11 +261,17 @@
       upgrade = true;
       cleanup = "zap";
     };
-    brews = [ ];
+    brews = [
+      "openclaw-cli"
+      "hermes-agent"
+    ];
     casks = [
       "antigravity"
       "antigravity-cli"
+      "claude-code"
+      "codex"
       "cursor"
+      "cursor-cli"
       "grok-build"
       "mullvad-browser"
       "protonvpn"
@@ -273,7 +285,6 @@
   fonts.packages = with pkgs; [
     nerd-fonts.hack
     julia-mono
-    sketchybar-app-font
   ];
 
   # NOTE: If AirDrop is broken/disabled while firewall is active, run these commands manually:
@@ -292,33 +303,10 @@
     sleep.allowSleepByPowerButton = true;
   };
 
-  services.sketchybar = {
-    enable = true;
-    extraPackages = [
-      pkgs.aerospace
-      pkgs.jq
-      pkgs.python3
-      pkgs.sqlite
-    ];
-  };
-
-  launchd.user.agents.weather-watcher = {
-    serviceConfig = {
-      ProgramArguments = [
-        "/bin/bash"
-        "-c"
-        "/run/current-system/sw/bin/sketchybar --trigger weather_update"
-      ];
-      WatchPaths = [
-        "/Users/uynx/Library/Containers/com.apple.weather/Data/Library/Caches/com.apple.weather"
-      ];
-      RunAtLoad = false;
-    };
-  };
+  services.sketchybar.enable = false;
 
   programs.fish.enable = true;
   programs.bash.enable = true;
-  users.users."uynx".shell = pkgs.fish;
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
