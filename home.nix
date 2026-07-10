@@ -37,8 +37,6 @@ in
     obsidian
     micro
 
-
-
     (neovim.override {
       withPerl = true;
       withNodeJs = true;

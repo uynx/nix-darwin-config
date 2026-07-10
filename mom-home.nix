@@ -7,16 +7,16 @@
 }:
 
 let
-  username = "uynx"; # <-- CHANGE THIS to your macOS username
-  gitName = "Brandon Alexander"; # <-- CHANGE THIS to your Git name
-  gitEmail = "brandonwalex@pm.me"; # <-- CHANGE THIS to your Git email
+  username = "amyalexander"; # <-- CHANGE THIS to your macOS username
+  gitName = "Amy Alexander"; # <-- CHANGE THIS to your Git name
+  gitEmail = "azalexander@gmail.com"; # <-- CHANGE THIS to your Git email
   gitKey = "~/.ssh/id_ed25519.pub"; # <-- SSH public key used for git auth and commit signing (git key)
 in
 {
   imports = [ ];
 
   home = {
-    username = username;
+    inherit username;
     homeDirectory = "/Users/${username}";
     stateVersion = "26.05";
     sessionVariables = {
@@ -39,8 +39,7 @@ in
     doggo
     obsidian
     micro
-
-
+    duti
 
     (neovim.override {
       withPerl = true;
@@ -63,10 +62,6 @@ in
     nil
     nixfmt
     statix
-
-    proton-pass
-    qbittorrent
-    whatsapp-for-mac
 
     tmux
     tmuxPlugins.sensible
@@ -93,13 +88,9 @@ in
     ".agents/AGENTS.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/AGENTS.md";
 
-    ".gemini/antigravity-cli/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/antigravity-cli-settings.json";
-      force = true;
-    };
+    ".claude/CLAUDE.md".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/AGENTS.md";
   };
-
-
 
   programs = {
     gh = {
@@ -115,21 +106,14 @@ in
       package = pkgs.ghostty-bin;
     };
 
-    fastfetch.enable = true;
     bun.enable = true;
     lazydocker.enable = true;
     java.enable = true;
     cargo.enable = true;
 
-
-
     vscodium = {
       enable = true;
       package = pkgs.vscodium;
-    };
-
-    discord = {
-      enable = true;
     };
 
     man = {
@@ -193,6 +177,7 @@ in
 
       interactiveShellInit = ''
         fish_add_path /opt/homebrew/bin
+        fish_add_path ~/.bun/bin
         set -g fish_greeting "Welcome! To update system packages, run:
   1. 'update' (fetches latest packages)
   2. 'reb'    (applies configurations and rebuilds system)"
@@ -214,8 +199,8 @@ in
         update = "nix flake update --flake ~/nix-config";
         unb = "xattr -d com.apple.quarantine";
 
-        word = "open -a LibreOffice --args --writer";
-        powerpoint = "open -a LibreOffice --args --impress";
+        vi = "nvim";
+        vim = "nvim";
 
         gen = "nix-env --list-generations";
 
@@ -280,7 +265,6 @@ in
 
     jq.enable = true;
     go.enable = true;
-    sioyek.enable = true;
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
 
@@ -345,5 +329,15 @@ in
   home.activation.createAiBrainDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/ai_memory/concepts"
     mkdir -p "$HOME/ai_memory/journal"
+  '';
+
+  home.activation.setFileAssociations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "${pkgs.duti}/bin/duti" ]; then
+      "${pkgs.duti}/bin/duti" -s com.vscodium public.plain-text all
+      "${pkgs.duti}/bin/duti" -s com.vscodium net.daringfireball.markdown all
+      for ext in txt md markdown nix json yaml yml toml sh py cpp h; do
+        "${pkgs.duti}/bin/duti" -s com.vscodium "$ext" all 2>/dev/null || true
+      done
+    fi
   '';
 }
