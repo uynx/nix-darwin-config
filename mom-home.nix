@@ -235,9 +235,20 @@ in
   2. 'reb'    (applies configurations and rebuilds system)"
       '';
 
+      functions = {
+        reb = {
+          body = ''
+            set -l target "simplified"
+            if test (count $argv) -gt 0
+                set target $argv[1]
+            end
+            sudo darwin-rebuild switch --flake ~/nix-config#$target
+          '';
+        };
+      };
+
       shellAliases = {
         update = "nix flake update --flake ~/nix-config";
-        reb = "sudo darwin-rebuild switch --flake ~/nix-config#mom";
         unb = "xattr -d com.apple.quarantine";
 
         word = "open -a LibreOffice --args --writer";
