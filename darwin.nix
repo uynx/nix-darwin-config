@@ -255,6 +255,10 @@
       upgrade = true;
       cleanup = "zap";
     };
+    brews = [
+      "openclaw-cli"
+      "hermes-agent"
+    ];
     casks = [
       "antigravity"
       "antigravity-cli"
