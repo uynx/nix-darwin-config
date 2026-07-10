@@ -41,8 +41,6 @@ in
     bandwhich
     duti
 
-
-
     (neovim.override {
       withPerl = true;
       withNodeJs = true;
