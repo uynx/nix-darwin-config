@@ -130,11 +130,10 @@ in
     ".agents/AGENTS.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
 
-    ".gemini/config/skills".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/skills";
-
-    ".gemini/config/AGENTS.md".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
+    ".gemini/antigravity-cli/settings.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/antigravity-cli-settings.json";
+      force = true;
+    };
   };
 
 
@@ -274,7 +273,8 @@ in
     fzf = {
       enable = true;
       enableFishIntegration = true;
-      changeDirWidgetCommand = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      changeDirWidget.command = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      historyWidget.command = "";
     };
 
     ripgrep = {

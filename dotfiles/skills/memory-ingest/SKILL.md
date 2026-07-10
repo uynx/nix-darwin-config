@@ -31,7 +31,7 @@ Use this skill when you need to process new raw documents (Markdown clips, PDFs,
 
 ### Step 5: Update the Central Index and Active Projects
 - Add a reference link to the new concepts or sources in `/Users/uynx/ai_memory/index.md` under the appropriate section.
-- If the ingestion relates to an active project milestone, update `/Users/uynx/ai_memory/projects.md`.
+- If the ingestion relates to an active project milestone, update the Active Projects section in `/Users/uynx/ai_memory/index.md`.
 
 ### Step 6: Log the Transaction
 - Append a daily log note at `/Users/uynx/ai_memory/journal/{project}_{date}.md` detailing the ingestion, what data points changed, and linking the new file.

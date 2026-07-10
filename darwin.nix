@@ -14,6 +14,14 @@ in
     shell = pkgs.fish;
   };
 
+  documentation = {
+    enable = false;
+    doc.enable = false;
+    man.enable = false;
+    info.enable = false;
+  };
+  system.tools.darwin-uninstaller.enable = false;
+
   determinateNix = {
     enable = true;
     determinateNixd = {
@@ -266,6 +274,7 @@ in
       "cursor-cli"
       "grok-build"
       "libreoffice"
+      "microsoft-teams"
       "mullvad-browser"
       "protonvpn"
       "streamlabs"
@@ -280,6 +289,9 @@ in
     julia-mono
   ];
 
+  # NOTE: If AirDrop is broken/disabled while firewall is active, run these commands manually:
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/libexec/rapportd
+  # sudo /usr/libexec/ApplicationFirewall/socketfilterfw --unblockapp /usr/libexec/rapportd
   networking = {
     applicationFirewall.enable = true;
     applicationFirewall.enableStealthMode = true;
