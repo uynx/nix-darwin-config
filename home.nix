@@ -114,24 +114,30 @@ in
 
   home.file = {
     ".config/nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/nvim";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/nvim";
     ".local/share/nvim/site/parser/norg.so".source =
       "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
     ".config/ghostty/config".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/ghostty_config";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/ghostty_config";
+
+    ".aerospace.toml".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/aerospace.toml";
+
+    ".config/sketchybar".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/sketchybar";
 
     ".config/tmux".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/tmux";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/tmux";
 
     ".agents/skills".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/skills";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/skills";
 
     ".agents/AGENTS.md".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/AGENTS.md";
 
     ".gemini/antigravity-cli/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/antigravity-cli-settings.json";
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/macos-dotfiles/antigravity-cli-settings.json";
       force = true;
     };
   };
