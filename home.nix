@@ -16,6 +16,7 @@
     sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";
+      AGY_CLI_DISABLE_AUTO_UPDATE = "true";
     };
   };
 
@@ -35,6 +36,7 @@
     tokei
     hyperfine
     bandwhich
+    duti
 
     (writeShellScriptBin "memory-sync" ''
       set -euo pipefail
@@ -83,8 +85,8 @@
     })
 
     tree-sitter
-    rustc
     nodejs
+    rustc
     (python3.withPackages (
       ps: with ps; [
         pip
@@ -154,8 +156,16 @@
     ".config/tmux".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/tmux";
 
-    "AGENTS.md".source =
+    ".agents/skills".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/skills";
+
+    ".agents/AGENTS.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/AGENTS.md";
+
+    ".gemini/antigravity-cli/settings.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/dotfiles/antigravity-cli-settings.json";
+      force = true;
+    };
   };
 
   services.colima = {
@@ -177,8 +187,6 @@
       enable = true;
       package = pkgs.ghostty-bin;
     };
-
-    antigravity-cli.enable = true;
 
     fastfetch.enable = true;
     bun.enable = true;
@@ -283,19 +291,6 @@
         wta = "git worktree add";
         wtr = "git worktree remove";
 
-        cat = "bat";
-        grep = "rg";
-        find = "fd";
-        sed = "sd";
-        ping = "gping";
-        top = "btop";
-        htop = "btop";
-        dig = "doggo";
-        du = "dust";
-        df = "duf";
-        ps = "procs";
-        cd = "z";
-        zi = "z -i";
         vi = "nvim";
         vim = "nvim";
         tree = "eza --tree --icons";
@@ -322,7 +317,8 @@
     fzf = {
       enable = true;
       enableFishIntegration = true;
-      changeDirWidgetCommand = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      changeDirWidget.command = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
+      historyWidget.command = "";
     };
 
     ripgrep = {
@@ -419,5 +415,15 @@
   home.activation.createAiBrainDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/ai_memory/concepts"
     mkdir -p "$HOME/ai_memory/journal"
+  '';
+
+  home.activation.setFileAssociations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "${pkgs.duti}/bin/duti" ]; then
+      "${pkgs.duti}/bin/duti" -s com.vscodium public.plain-text all
+      "${pkgs.duti}/bin/duti" -s com.vscodium net.daringfireball.markdown all
+      for ext in txt md markdown nix json yaml yml toml sh py cpp h; do
+        "${pkgs.duti}/bin/duti" -s com.vscodium "$ext" all 2>/dev/null || true
+      done
+    fi
   '';
 }

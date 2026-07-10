@@ -5,7 +5,19 @@ LOCATION=""
 
 DB_PATH="$HOME/Library/Containers/com.apple.weather/Data/Library/Caches/com.apple.weather/Cache.db"
 if [ -f "$DB_PATH" ]; then
-  URL=$(sqlite3 "$DB_PATH" "SELECT request_key FROM cfurl_cache_response WHERE request_key LIKE '%weatherkit.apple.com/api/v2/weather%' AND request_key LIKE '%locationInfo%' ORDER BY entry_ID DESC LIMIT 1;" 2>/dev/null)
+  TZ_VAL=""
+  if [ -L "/etc/localtime" ]; then
+    TZ_VAL=$(readlink /etc/localtime | sed 's|.*/zoneinfo/||')
+  fi
+  
+  if [ -n "$TZ_VAL" ]; then
+    URL=$(sqlite3 "$DB_PATH" "SELECT request_key FROM cfurl_cache_response WHERE request_key LIKE '%weatherkit.apple.com/api/v2/weather%' AND request_key LIKE '%timezone=${TZ_VAL}%' ORDER BY entry_ID DESC LIMIT 1;" 2>/dev/null)
+  fi
+  
+  if [ -z "$URL" ]; then
+    URL=$(sqlite3 "$DB_PATH" "SELECT request_key FROM cfurl_cache_response WHERE request_key LIKE '%weatherkit.apple.com/api/v2/weather%' ORDER BY entry_ID DESC LIMIT 1;" 2>/dev/null)
+  fi
+
   if [[ "$URL" =~ weather/[a-zA-Z-]+/([0-9.-]+)/([0-9.-]+) ]]; then
     LOCATION="${BASH_REMATCH[1]},${BASH_REMATCH[2]}"
     echo "$LOCATION" > "$HOME/.weather_location"
@@ -24,40 +36,39 @@ fi
 LAT=${LOCATION%,*}
 LON=${LOCATION#*,}
 
-STATION_FILE="$HOME/.weather_station"
-PREV_LOC_FILE="$HOME/.weather_location_prev"
+RESPONSE=""
+TEMP_C=""
 STATION=""
 
-if [ -f "$PREV_LOC_FILE" ]; then
-  PREV_LOC=$(cat "$PREV_LOC_FILE" | xargs)
-else
-  PREV_LOC=""
-fi
+GRID_RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "https://api.weather.gov/points/${LAT},${LON}" 2>/dev/null)
+STATIONS_URL=$(echo "$GRID_RESPONSE" | jq -r '.properties.observationStations' 2>/dev/null)
 
-if [ "$LOCATION" != "$PREV_LOC" ] || [ ! -f "$STATION_FILE" ]; then
-  GRID_RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "https://api.weather.gov/points/${LAT},${LON}" 2>/dev/null)
-  STATIONS_URL=$(echo "$GRID_RESPONSE" | jq -r '.properties.observationStations' 2>/dev/null)
+if [ -n "$STATIONS_URL" ] && [ "$STATIONS_URL" != "null" ]; then
+  STATION_RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "$STATIONS_URL" 2>/dev/null)
+  STATIONS=$(echo "$STATION_RESPONSE" | jq -r '.features[].properties.stationIdentifier' 2>/dev/null)
   
-  if [ -n "$STATIONS_URL" ] && [ "$STATIONS_URL" != "null" ]; then
-    STATION_RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "$STATIONS_URL" 2>/dev/null)
-    STATION=$(echo "$STATION_RESPONSE" | jq -r '.features[0].properties.stationIdentifier' 2>/dev/null)
+  count=0
+  for st in $STATIONS; do
+    [ "$count" -ge 5 ] && break
+    count=$((count + 1))
     
-    if [ -n "$STATION" ] && [ "$STATION" != "null" ]; then
-      echo "$STATION" > "$STATION_FILE"
-      echo "$LOCATION" > "$PREV_LOC_FILE"
+    OBS_RESP=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "https://api.weather.gov/stations/${st}/observations/latest" 2>/dev/null)
+    if [ -n "$OBS_RESP" ] && [[ ! "$OBS_RESP" =~ "error" ]]; then
+      T_VAL=$(echo "$OBS_RESP" | jq -r '.properties.temperature.value' 2>/dev/null)
+      if [ -n "$T_VAL" ] && [ "$T_VAL" != "null" ]; then
+        STATION="$st"
+        RESPONSE="$OBS_RESP"
+        TEMP_C="$T_VAL"
+        break
+      fi
     fi
-  fi
+  done
 fi
 
-if [ -z "$STATION" ] && [ -f "$STATION_FILE" ]; then
-  STATION=$(cat "$STATION_FILE" | xargs)
-fi
-
-if [ -z "$STATION" ]; then
+if [ -z "$STATION" ] || [ -z "$TEMP_C" ] || [ "$TEMP_C" = "null" ]; then
   STATION="KDFW"
+  RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "https://api.weather.gov/stations/${STATION}/observations/latest" 2>/dev/null)
 fi
-
-RESPONSE=$(curl -s -H "User-Agent: (myweatherapp, brandonwalex@pm.me)" "https://api.weather.gov/stations/${STATION}/observations/latest" 2>/dev/null)
 
 if [ -n "$RESPONSE" ] && [[ ! "$RESPONSE" =~ "error" ]]; then
   TEMP_C=$(echo "$RESPONSE" | jq -r '.properties.temperature.value')

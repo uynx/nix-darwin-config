@@ -65,7 +65,7 @@ def update_mastery_file(keymaps):
     for key, desc, src in unique_keymaps:
         clean_key = f"`{key}`"
         clean_desc = f"`{desc}`" if desc.startswith("<") or desc.startswith("vim") or desc.startswith("[") else desc
-        table_lines.append(f"| {clean_key} | {clean_desc} | [{os.path.basename(src)}](file:///Users/uynx/nix-config/dotfiles/nvim/{src}) |")
+        table_lines.append(f"| {clean_key} | {clean_desc} | `nvim/{src}` |")
 
     table_content = "\n".join(table_lines)
 

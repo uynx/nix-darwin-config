@@ -48,16 +48,16 @@ def audit_vault():
 
         lines = content.splitlines()
         
-        # Check if indexed in index.md
-        if rel_path not in ["index.md", "identity.md", "projects.md"] and name not in indexed_notes:
+        # Check if indexed in index.md (skip journals since they are pruned to 10 most recent)
+        if rel_path not in ["index.md"] and not rel_path.startswith("journal/") and name not in indexed_notes:
             warnings.append(f"{rel_path}: Note is not indexed in index.md")
 
         # Check staleness
         mtime = os.path.getmtime(filepath)
         days_since_mod = (time.time() - mtime) / (24 * 3600)
         
-        # Check staleness for concepts or identity/projects
-        if rel_path.startswith("concepts/") or rel_path in ["identity.md", "projects.md"]:
+        # Check staleness for concepts or the central index
+        if rel_path.startswith("concepts/") or rel_path in ["index.md"]:
             if days_since_mod > STALE_DAYS:
                 stale_notes.append((rel_path, int(days_since_mod)))
 
@@ -158,8 +158,6 @@ def audit_vault():
                     if parent_name in ["local_ai_memory_system", "nix_darwin_setup", "neovim_mastery"]:
                         if not any("<section id=\"accomplishments\">" in line for line in lines):
                             warnings.append(f"{rel_path}: Coding log is missing a '<section id=\"accomplishments\">' block.")
-                        if "file:///" not in content:
-                            warnings.append(f"{rel_path}: Coding log contains no clickable file:/// links (document changes using file:/// links).")
 
     # 3. Print report
     print("# Obsidian AI Memory Audit Report")
