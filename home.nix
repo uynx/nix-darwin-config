@@ -108,8 +108,11 @@ in
     ".local/share/nvim/site/parser/norg.so".source =
       "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
-    ".config/ghostty/config".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/ghostty_config";
+    # Shared body in ~/dotfiles/ghostty_config; font-size is larger on Retina.
+    ".config/ghostty/config".text = ''
+      config-file = ${config.home.homeDirectory}/dotfiles/ghostty_config
+      font-size = 16
+    '';
 
     ".aerospace.toml".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/aerospace.toml";
