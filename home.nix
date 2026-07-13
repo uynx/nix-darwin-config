@@ -406,4 +406,12 @@ in
       scale = "fill";
     };
   };
+
+  # Brave: Cmd+Q closes the focused window only (process/other windows live).
+  # Real quit: Cmd+Option+Q. Chromium has one app-level Quit that kills every window.
+  targets.darwin.defaults."com.brave.Browser".NSUserKeyEquivalents = {
+    "Close Window" = "@q";
+    "Quit Brave" = "@~q";
+    "Quit Brave Browser" = "@~q";
+  };
 }
