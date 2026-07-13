@@ -397,4 +397,11 @@ in
       done
     fi
   '';
+
+  # Shared with NixOS: ~/dotfiles/wallpaper.png (also aerospace after-startup).
+  home.activation.setWallpaper = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ -x "$HOME/dotfiles/scripts/set-wallpaper.sh" ]; then
+      "$HOME/dotfiles/scripts/set-wallpaper.sh" || true
+    fi
+  '';
 }
