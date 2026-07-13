@@ -157,7 +157,10 @@ in
       };
     };
 
-    ghostty.enable = true;
+    ghostty = {
+      enable = true;
+      package = pkgs.ghostty-bin;
+    };
 
     fastfetch.enable = true;
     bun.enable = true;
