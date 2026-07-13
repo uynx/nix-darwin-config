@@ -409,11 +409,11 @@ in
 
   # Brave shortcuts (process isolation = separate user-data-dir per profile in
   # brave-activation.sh — Option alone cannot split processes).
-  #   Cmd+W           close tab (browser default)
-  #   Cmd+Option+W    close window (other windows / other instance keep running)
-  #   Cmd+Q           quit *this* Brave instance only (other instance survives)
+  #   Cmd+W     close tab (browser default)
+  #   Option+W  close window (other windows / other instance keep running)
+  #   Cmd+Q     quit *this* Brave instance only (other instance survives)
   targets.darwin.defaults."com.brave.Browser".NSUserKeyEquivalents = {
-    "Close Window" = "@~w";
+    "Close Window" = "~w";
     "Quit Brave" = "@q";
     "Quit Brave Browser" = "@q";
   };
