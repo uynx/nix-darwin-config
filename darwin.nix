@@ -296,6 +296,7 @@
     enable = true;
     extraPackages = [
       pkgs.aerospace
+      pkgs.cava
       pkgs.jq
       pkgs.python3
       pkgs.sqlite
