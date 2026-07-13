@@ -141,7 +141,7 @@ in
     enable = true;
     settings = {
       style = "round";
-      width = 8.0;
+      width = 6.0;
       hidpi = "on";
       active_color = "0xffffffff";
       inactive_color = "0x00000000";
@@ -157,10 +157,7 @@ in
       };
     };
 
-    ghostty = {
-      enable = true;
-      package = pkgs.ghostty-bin;
-    };
+    ghostty.enable = true;
 
     fastfetch.enable = true;
     bun.enable = true;
@@ -170,17 +167,13 @@ in
 
     aerospace = {
       enable = true;
-      package = pkgs.aerospace;
       launchd = {
         enable = true;
         keepAlive = true;
       };
     };
 
-    vscodium = {
-      enable = true;
-      package = pkgs.vscodium;
-    };
+    vscodium.enable = true;
 
     discord = {
       enable = true;
@@ -192,14 +185,10 @@ in
       package = pkgs-stable.man;
     };
 
-    zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    zoxide.enable = true;
 
     yazi = {
       enable = true;
-      enableFishIntegration = true;
       shellWrapperName = "y";
       settings = {
         manager = {
@@ -216,7 +205,6 @@ in
 
     eza = {
       enable = true;
-      enableFishIntegration = true;
       icons = "auto";
       git = true;
       extraOptions = [
@@ -237,10 +225,7 @@ in
       settings.updates.auto_update = true;
     };
 
-    atuin = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    atuin.enable = true;
 
     fish = {
       enable = true;
@@ -292,7 +277,6 @@ in
 
     starship = {
       enable = true;
-      enableFishIntegration = true;
       settings = {
         add_newline = false;
         command_timeout = 3000;
@@ -301,7 +285,6 @@ in
 
     fzf = {
       enable = true;
-      enableFishIntegration = true;
       changeDirWidget.command = "fd --type d --hidden --strip-cwd-prefix --exclude .git";
       historyWidget.command = "";
     };
@@ -345,12 +328,10 @@ in
         doCheck = false;
       });
       nix-direnv.enable = true;
-      enableFishIntegration = true;
     };
 
     delta = {
       enable = true;
-      enableGitIntegration = true;
       options = {
         navigate = true;
         side-by-side = true;
