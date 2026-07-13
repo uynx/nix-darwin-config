@@ -136,14 +136,14 @@ in
     dockerPackage = pkgs.docker;
   };
 
-  # Thin Flexoki-blue ring on focused window (both monitors).
+  # Focused-window ring — thick + bright so it reads on both monitors.
   services.jankyborders = {
     enable = true;
     settings = {
       style = "round";
-      width = 2.0;
+      width = 5.0;
       hidpi = "on";
-      active_color = "0xff205ea6";
+      active_color = "0xff4fc3f7"; # bright cyan-blue
       inactive_color = "0x00000000";
     };
   };

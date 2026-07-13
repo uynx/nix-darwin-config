@@ -259,6 +259,8 @@
     casks = [
       "antigravity"
       "antigravity-cli"
+      # System-audio loopback for sketchybar cava (needs reboot once after first install).
+      "blackhole-2ch"
       "cursor"
       "grok-build"
       "mullvad-browser"
