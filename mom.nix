@@ -264,7 +264,6 @@ in
     brews = [
       "openclaw-cli"
       "hermes-agent"
-      "pipx"
     ];
     casks = [
       "antigravity"
